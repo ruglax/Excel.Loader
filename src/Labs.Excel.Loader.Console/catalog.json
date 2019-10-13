@@ -1,0 +1,99 @@
+{
+  "filepath": "D:\\User\\Downloads\\catCFDI.xlsx",
+  "catalogDefinition": [
+    {
+      "sheetName": "c_Aduana",
+      "active":  true, 
+      "version": "1.0",
+      "revision": "1",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_Aduana",
+          "PropertyName": "c_Aduana"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Descripcion"
+        },
+        {
+          "Index": 2,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_ClaveUnidad",
+      "active":  true ,
+      "version": "1.0",
+      "revision": "1",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_ClaveUnidad",
+          "PropertyName": "c_ClaveUnidad"
+        },
+        {
+          "Index": 1,
+          "Name": "Nombre",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 4,
+          "Name": "Fecha de inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        },
+        {
+          "Index": 5,
+          "Name": "Fecha de fin de vigencia",
+          "PropertyName": "FechaFin"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_ClaveProdServ",
+      "active":  true, 
+      "version": "2.0",
+      "revision": "2",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_ClaveProdServ",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Descripcion"
+        },
+        {
+          "Index": 2,
+          "Name": "Incluir IVA trasladado",
+          "PropertyName": "IncluirIVA"
+        },
+        {
+          "Index": 3,
+          "Name": "Incluir IEPS trasladado",
+          "PropertyName": "IncluirIEPS"
+        },
+        {
+          "Index": 5,
+          "Name": "FechaInicioVigencia",
+          "PropertyName": "FechaInicio"
+        },
+        {
+          "Index": 6,
+          "Name": "FechaFinVigencia",
+          "PropertyName": "FechaFin"
+        },
+        {
+          "Index": 7,
+          "Name": "Estímulo Franja Fronteriza",
+          "PropertyName": "EstimuloFranjaFronteriza"
+        }
+      ]
+    }
+  ]
+}
