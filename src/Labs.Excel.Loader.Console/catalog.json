@@ -3,19 +3,19 @@
   "catalogDefinition": [
     {
       "sheetName": "c_Aduana",
-      "active":  true, 
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "rows": [
         {
           "Index": 0,
           "Name": "c_Aduana",
-          "PropertyName": "c_Aduana"
+          "PropertyName": "Clave"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Descripcion"
+          "PropertyName": "Nombre"
         },
         {
           "Index": 2,
@@ -26,14 +26,14 @@
     },
     {
       "sheetName": "c_ClaveUnidad",
-      "active":  true ,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "rows": [
         {
           "Index": 0,
           "Name": "c_ClaveUnidad",
-          "PropertyName": "c_ClaveUnidad"
+          "PropertyName": "Clave"
         },
         {
           "Index": 1,
@@ -54,7 +54,7 @@
     },
     {
       "sheetName": "c_ClaveProdServ",
-      "active":  true, 
+      "active": false,
       "version": "2.0",
       "revision": "2",
       "rows": [
@@ -66,7 +66,7 @@
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Descripcion"
+          "PropertyName": "Nombre"
         },
         {
           "Index": 2,
@@ -92,6 +92,50 @@
           "Index": 7,
           "Name": "Estímulo Franja Fronteriza",
           "PropertyName": "EstimuloFranjaFronteriza"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
+      "entityName": "c_CodigoPostal",
+      "active": true,
+      "version": "4.0",
+      "revision": "1",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_CodigoPostal",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "c_Estado",
+          "PropertyName": "Estado"
+        },
+        {
+          "Index": 2,
+          "Name": "c_Municipio",
+          "PropertyName": "Municipio"
+        },
+        {
+          "Index": 3,
+          "Name": "c_Localidad",
+          "PropertyName": "Localidad"
+        },
+        {
+          "Index": 4,
+          "Name": "Estímulo Franja Fronteriza",
+          "PropertyName": "EstimuloFranjaFronteriza"
+        },
+        {
+          "Index": 5,
+          "Name": "Fecha de inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        },
+        {
+          "Index": 6,
+          "Name": "Fecha de fin de vigencia",
+          "PropertyName": "FechaFin"
         }
       ]
     }

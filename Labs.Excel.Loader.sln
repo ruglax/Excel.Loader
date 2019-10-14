@@ -11,7 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Client", "01 Client", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Library", "02 Library", "{2A7ED4B2-8C57-47A9-9794-394B358184A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs.Excel.Loader.Model", "src\Labs.Excel.Loader.Model\Labs.Excel.Loader.Model.csproj", "{5212C079-72EA-4FA5-9430-9C169BAEC332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Labs.Excel.Loader.Model", "src\Labs.Excel.Loader.Model\Labs.Excel.Loader.Model.csproj", "{5212C079-72EA-4FA5-9430-9C169BAEC332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labs.Excel.Loader.Database", "src\Labs.Excel.Loader.Database\Labs.Excel.Loader.Database.csproj", "{B927CAC7-FEA2-4828-87DD-FA81FF59B60B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{5212C079-72EA-4FA5-9430-9C169BAEC332}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5212C079-72EA-4FA5-9430-9C169BAEC332}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5212C079-72EA-4FA5-9430-9C169BAEC332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B927CAC7-FEA2-4828-87DD-FA81FF59B60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B927CAC7-FEA2-4828-87DD-FA81FF59B60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B927CAC7-FEA2-4828-87DD-FA81FF59B60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B927CAC7-FEA2-4828-87DD-FA81FF59B60B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{85E6F246-0F8F-4146-A60B-F505B4E7183E} = {A2667165-8354-4C7F-A9C2-2F5978A9BFAA}
 		{96388645-F7BB-4986-8221-CDABF2E0A3B7} = {2A7ED4B2-8C57-47A9-9794-394B358184A1}
 		{5212C079-72EA-4FA5-9430-9C169BAEC332} = {2A7ED4B2-8C57-47A9-9794-394B358184A1}
+		{B927CAC7-FEA2-4828-87DD-FA81FF59B60B} = {2A7ED4B2-8C57-47A9-9794-394B358184A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EC531A9-DDC9-4279-979F-FE8C57058547}

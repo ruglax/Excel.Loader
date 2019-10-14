@@ -8,6 +8,8 @@ namespace Labs.Excel.Loader.Configuration
     {
         public string SheetName { get; set; }
 
+        public string EntityName { get; set; }
+
         public bool Active { get; set; }
 
         public string Version { get; set; }

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Labs.Excel.Loader.Database\Labs.Excel.Loader.Database.csproj" />
     <ProjectReference Include="..\Labs.Excel.Loader\Labs.Excel.Loader.csproj" />
   </ItemGroup>
 

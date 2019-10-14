@@ -1,7 +1,9 @@
-﻿namespace Labs.Excel.Loader
+﻿using System.Threading.Tasks;
+
+namespace Labs.Excel.Loader
 {
     public interface ISheetReader
     {
-        void ReadSheet();
+        Task ReadSheetAsync();
     }
 }

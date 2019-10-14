@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.IO;
+using System.Threading.Tasks.Dataflow;
 using Labs.Excel.Loader.Configuration;
+using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
+using Labs.Excel.Loader.Database;
 
 namespace Labs.Excel.Loader.Console
 {
@@ -21,7 +25,12 @@ namespace Labs.Excel.Loader.Console
             ConfigureServices(configuration, serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            serviceProvider.GetService<ILoader>().ReadFile();
+            var loader = serviceProvider.GetService<ILoader>();
+            var consumer = serviceProvider.GetService<IConsumer>();
+            //link
+            loader.BufferBlock.LinkTo(new ActionBlock<Message>(consumer.Transform));
+
+            loader.ReadFile();
 
             System.Console.ReadLine();
         }
@@ -29,12 +38,14 @@ namespace Labs.Excel.Loader.Console
         private static void ConfigureServices(IConfiguration config, IServiceCollection serviceCollection)
         {
             var catalogConfiguration = new CatalogConfiguration();
-            config.Bind(catalogConfiguration); 
+            config.Bind(catalogConfiguration);
 
-            serviceCollection.AddSingleton(config);
             serviceCollection.AddLogging();
-            serviceCollection.AddTransient<ISheetReader, SheetReader>();
+            serviceCollection.AddSingleton(config);
+            serviceCollection.AddSingleton(ctx => new BufferBlock<Message>(new DataflowBlockOptions { BoundedCapacity = DataflowBlockOptions.Unbounded }));
+            
             serviceCollection.AddTransient<IWorbookReader>(ctx => new WorbookReader(catalogConfiguration));
+            serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();
         }
     }
