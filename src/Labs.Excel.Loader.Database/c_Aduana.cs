@@ -2,7 +2,7 @@
 
 namespace Labs.Excel.Loader.Database
 {
-    internal class c_Aduana
+    public class c_Aduana
     {
         public string Clave { get; set; }
 

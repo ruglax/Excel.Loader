@@ -6,6 +6,6 @@ namespace Labs.Excel.Loader.Model
 {
     public interface IConsumer
     {
-        void Transform(Message message);
+        T Transform<T>(Message message) where T : class;
     }
 }

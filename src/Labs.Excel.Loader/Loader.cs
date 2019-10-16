@@ -32,6 +32,8 @@ namespace Labs.Excel.Loader
                     await sheetReader.ReadSheetAsync();
                 }
             });
+
+            _bufferBlock.Complete();
         }
 
 

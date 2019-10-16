@@ -13,13 +13,13 @@ namespace Labs.Excel.Loader
     {
         private readonly IWorkbook _workbook;
 
-        private readonly BufferBlock<Message> _targetBlock;
+        private readonly ITargetBlock<Message> _targetBlock;
 
         private readonly CatalogDefinition _catalogDefinition;
 
         private bool _startProcess;
 
-        public SheetReader(IWorkbook workbook, BufferBlock<Message> targetBlock, CatalogDefinition catalogDefinition)
+        public SheetReader(IWorkbook workbook, ITargetBlock<Message> targetBlock, CatalogDefinition catalogDefinition)
         {
             _workbook = workbook;
             _targetBlock = targetBlock;
