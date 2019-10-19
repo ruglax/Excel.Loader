@@ -7,9 +7,6 @@ namespace Labs.Excel.Loader.Database
 {
     public class Consumer : IConsumer
     {
-        private static readonly ConcurrentDictionary<string, Type> ConcurrentBag =
-            new ConcurrentDictionary<string, Type>();
-
         public T Transform<T>(Message message) where T : class
         {
             try

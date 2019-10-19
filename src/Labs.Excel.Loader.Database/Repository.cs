@@ -5,18 +5,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labs.Excel.Loader.Database
 {
-    public class Repository<T> where T : class, new()
+    public class Repository<T> : IRepository<T>
+        where T : class, new()
     {
-        private readonly DbContext _context;
+        private readonly DbCatalogContext _context;
 
-        public Repository(DbContext context)
+        public Repository(DbCatalogContext context)
         {
             _context = context;
         }
 
         public void BulkInsert(T[] entities)
         {
-            _context.BulkInsert(entities);
+            try
+            {
+                _context.BulkInsert(entities);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
         }
     }
 }

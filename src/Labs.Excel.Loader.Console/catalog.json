@@ -10,7 +10,8 @@
         {
           "Index": 0,
           "Name": "c_Aduana",
-          "PropertyName": "Clave"
+          "PropertyName": "Clave",
+          "Mask": "0:00"
         },
         {
           "Index": 1,

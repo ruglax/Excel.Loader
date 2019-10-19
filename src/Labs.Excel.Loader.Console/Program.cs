@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Labs.Excel.Loader.Database;
+using Microsoft.EntityFrameworkCore;
+using Z.EntityFramework.Extensions;
 
 namespace Labs.Excel.Loader.Console
 {
@@ -25,38 +27,26 @@ namespace Labs.Excel.Loader.Console
             ConfigureServices(configuration, serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
+
             var loader = serviceProvider.GetService<ILoader>();
             var consumer = serviceProvider.GetService<IConsumer>();
-            //link
 
-            const int batchSize = 10000;
-            var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
-
-            ConfigureEntity<c_CodigoPostal>(consumer, batchSize, loader, linkOptions);
-            ConfigureEntity<c_Aduana>(consumer, batchSize, loader, linkOptions);
-            ConfigureEntity<c_ClaveProdServ>(consumer, batchSize, loader, linkOptions);
-            ConfigureEntity<c_ClaveUnidad>(consumer, batchSize, loader, linkOptions);
-
-            //loader.BufferBlock.LinkTo(new ActionBlock<Message>(consumer.Transform), linkOptions);
-
+            ConfigureRepository<c_Aduana>(serviceProvider, loader, consumer);
+            ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader, consumer);
+            ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader, consumer);
+            ConfigureRepository<c_CodigoPostal>(serviceProvider, loader, consumer);
             loader.ReadFile();
 
             System.Console.ReadLine();
         }
 
-        private static void ConfigureEntity<T>(IConsumer consumer, int batchSize, ILoader loader, DataflowLinkOptions linkOptions)
-            where T : class
+        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader, IConsumer consumer) 
+            where T : class, new()
         {
-            var transformBlock = new TransformBlock<Message, T>((Func<Message, T>)consumer.Transform<T>);
-            var batchBlock = new BatchBlock<T>(batchSize);
-            transformBlock.LinkTo(batchBlock);
-            batchBlock.LinkTo(new ActionBlock<T[]>(m =>
-            {
-                System.Console.WriteLine(m.GetType());
-                System.Console.WriteLine(m.Length);
-            }));
-
-            loader.BufferBlock.LinkTo(transformBlock, linkOptions, m => m != null && m.Type == typeof(T).Name);
+            const int batchSize = 50000;
+            var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
+            var aduanaRepository = serviceProvider.GetService<IRepository<T>>();
+            loader.ConfigureEntity(consumer.Transform<T>, aduanaRepository.BulkInsert, batchSize, linkOptions);
         }
 
         private static void ConfigureServices(IConfiguration config, IServiceCollection serviceCollection)
@@ -65,6 +55,18 @@ namespace Labs.Excel.Loader.Console
             config.Bind(catalogConfiguration);
 
             serviceCollection.AddLogging();
+            serviceCollection.AddDbContext<DbCatalogContext>(options =>
+            {
+                options.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
+            });
+            //TODO : Move to factory
+            EntityFrameworkManager.ContextFactory = context =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<DbCatalogContext>();
+                optionsBuilder.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
+                return new DbCatalogContext(optionsBuilder.Options);
+            };
+
             serviceCollection.AddSingleton(config);
             serviceCollection.AddSingleton(ctx => new BufferBlock<Message>(new DataflowBlockOptions
             {
@@ -72,6 +74,13 @@ namespace Labs.Excel.Loader.Console
             }));
 
             serviceCollection.AddTransient<IWorbookReader>(ctx => new WorbookReader(catalogConfiguration));
+
+            serviceCollection.AddTransient<IRepository<c_Aduana>, Repository<c_Aduana>>();
+            serviceCollection.AddTransient<IRepository<c_ClaveProdServ>, Repository<c_ClaveProdServ>>();
+            serviceCollection.AddTransient<IRepository<c_ClaveUnidad>, Repository<c_ClaveUnidad>>();
+            serviceCollection.AddTransient<IRepository<c_CodigoPostal>, Repository<c_CodigoPostal>>();
+            
+
             serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();
         }

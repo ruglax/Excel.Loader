@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public string PropertyName { get; set; }
+
+        public string Mask { get; set; }
     }
 }

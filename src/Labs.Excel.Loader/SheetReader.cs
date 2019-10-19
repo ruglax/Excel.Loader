@@ -75,14 +75,14 @@ namespace Labs.Excel.Loader
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("----------------------");
-                    Console.WriteLine($"sheet: {sheet}, rowIndex: {rowIndex}");
-                    Console.WriteLine(e);
-                    Console.WriteLine("----------------------");
+                    //Console.WriteLine("----------------------");
+                    //Console.WriteLine($"sheet: {sheet}, rowIndex: {rowIndex}");
+                    //Console.WriteLine(e);
+                    //Console.WriteLine("----------------------");
                 }
             }
 
-            Console.WriteLine($"Records procesados {sheet.SheetName}: {records}");
+            Console.WriteLine($"Founded records {sheet.SheetName}: {records}");
         }
 
         private JToken WriteJson(IRow row)
@@ -93,11 +93,32 @@ namespace Labs.Excel.Loader
             {
                 ICell cell = row.GetCell(rowDefinition.Index);
                 writer.WritePropertyName(rowDefinition.PropertyName);
-                writer.WriteValue(cell?.ToString() ?? string.Empty);
+                if (string.IsNullOrWhiteSpace(rowDefinition.Mask))
+                {
+                    writer.WriteValue(cell?.ToString() ?? string.Empty);
+                }
+                else
+                {
+                    writer.WriteValue(string.Format($"{{{rowDefinition.Mask}}}", GetValue(cell)));
+                }
+
             }
 
             writer.WriteEndObject();
             return writer.Token;
+        }
+
+        private object GetValue(ICell cell)
+        {
+            switch (cell.CellType)
+            {
+                case CellType.String:
+                    return cell.ToString();
+                case CellType.Numeric:
+                    return cell.NumericCellValue;
+                default:
+                    return cell.ToString();
+            }
         }
     }
 }
