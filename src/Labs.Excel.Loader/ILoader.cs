@@ -12,6 +12,6 @@ namespace Labs.Excel.Loader
             where T : class;
 
 
-        void ReadFile();
+        void UploadFile();
     }
 }

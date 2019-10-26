@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks.Dataflow;
 using Labs.Excel.Loader.Configuration;
 using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using Z.EntityFramework.Extensions;
 
 namespace Labs.Excel.Loader.Console
@@ -21,6 +20,7 @@ namespace Labs.Excel.Loader.Console
             IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("catalog.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
             var serviceCollection = new ServiceCollection();
@@ -35,7 +35,8 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader, consumer);
             ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader, consumer);
             ConfigureRepository<c_CodigoPostal>(serviceProvider, loader, consumer);
-            loader.ReadFile();
+
+            loader.UploadFile();
 
             System.Console.ReadLine();
         }
@@ -54,7 +55,12 @@ namespace Labs.Excel.Loader.Console
             var catalogConfiguration = new CatalogConfiguration();
             config.Bind(catalogConfiguration);
 
-            serviceCollection.AddLogging();
+            serviceCollection.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.AddNLog(config);
+            });
+
             serviceCollection.AddDbContext<DbCatalogContext>(options =>
             {
                 options.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");

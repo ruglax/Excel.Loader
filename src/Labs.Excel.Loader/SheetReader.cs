@@ -15,32 +15,29 @@ namespace Labs.Excel.Loader
 
         private readonly ITargetBlock<Message> _targetBlock;
 
-        private readonly CatalogDefinition _catalogDefinition;
-
         private bool _startProcess;
 
-        public SheetReader(IWorkbook workbook, ITargetBlock<Message> targetBlock, CatalogDefinition catalogDefinition)
+        public SheetReader(IWorkbook workbook, ITargetBlock<Message> targetBlock)
         {
             _workbook = workbook;
             _targetBlock = targetBlock;
-            _catalogDefinition = catalogDefinition;
         }
 
-        public async Task ReadSheetAsync()
+        public async Task ReadSheetAsync(CatalogDefinition catalogDefinition)
         {
-            var sheets = _catalogDefinition.SheetName.Split(',');
+            var sheets = catalogDefinition.SheetName.Split(',');
             foreach (var sheet in sheets)
             {
-                await ReadSheet(sheet.Trim());
+                await ReadSheet(catalogDefinition, sheet.Trim());
             }
         }
 
-        private async Task ReadSheet(string sheetName)
+        private async Task ReadSheet(CatalogDefinition catalogDefinition, string sheetName)
         {
             var sheet = _workbook.GetSheet(sheetName);
             if (sheet == null) return;
 
-            RowDefinition clave = _catalogDefinition.Rows
+            RowDefinition clave = catalogDefinition.Rows
                 .OrderBy(p => p.Index)
                 .FirstOrDefault();
 
@@ -62,18 +59,21 @@ namespace Labs.Excel.Loader
 
                     if (_startProcess)
                     {
-                        var jtoken = WriteJson(row);
-                        await _targetBlock.SendAsync(new Message
+                        var jtoken = WriteJson(row, catalogDefinition);
+                        if (jtoken != null)
                         {
-                            RecordIndex = records,
-                            Type = _catalogDefinition.EntityName ?? _catalogDefinition.SheetName,
-                            JToken = jtoken
-                        });
+                            await _targetBlock.SendAsync(new Message
+                            {
+                                RecordIndex = records,
+                                Type = catalogDefinition.EntityName ?? catalogDefinition.SheetName,
+                                JToken = jtoken
+                            });
 
-                        records++;
+                            records++;
+                        }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     //Console.WriteLine("----------------------");
                     //Console.WriteLine($"sheet: {sheet}, rowIndex: {rowIndex}");
@@ -85,11 +85,11 @@ namespace Labs.Excel.Loader
             Console.WriteLine($"Founded records {sheet.SheetName}: {records}");
         }
 
-        private JToken WriteJson(IRow row)
+        private JToken WriteJson(IRow row, CatalogDefinition catalogDefinition)
         {
             JTokenWriter writer = new JTokenWriter();
             writer.WriteStartObject();
-            foreach (var rowDefinition in _catalogDefinition.Rows)
+            foreach (var rowDefinition in catalogDefinition.Rows)
             {
                 ICell cell = row.GetCell(rowDefinition.Index);
                 writer.WritePropertyName(rowDefinition.PropertyName);

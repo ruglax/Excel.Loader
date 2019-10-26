@@ -13,7 +13,11 @@ namespace Labs.Excel.Loader.Database
             {
                 Type type = typeof(T);
                 JObject jobject = message.JToken as JObject;
-                return (T)jobject?.ToObject(type);
+                T entity = (T) jobject?.ToObject(type);
+                if (entity != null)
+                {
+                    return entity;
+                }
             }
             catch (Exception e)
             {
@@ -21,8 +25,9 @@ namespace Labs.Excel.Loader.Database
                 //Console.WriteLine(message.JToken);
                 //Console.WriteLine(e);
                 //Console.WriteLine("--------------------");
-                return null;
             }
+
+            return null;
         }
     }
 }
