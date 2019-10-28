@@ -1,31 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Labs.Excel.Loader.Database
 {
     public class Repository<T> : IRepository<T>
         where T : class, new()
     {
+        private readonly ILogger<Repository<T>> _logger;
+
         private readonly DbCatalogContext _context;
 
-        public Repository(DbCatalogContext context)
+        public Repository(DbCatalogContext context, ILogger<Repository<T>> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        public void BulkInsert(T[] entities)
+        public async Task BulkInsert(T[] entities)
         {
             try
             {
-                _context.BulkInsert(entities);
+                _logger.LogDebug($"Saving records {entities.Length} of type {typeof(T).Name}");
+                await _context.BulkInsertAsync(entities);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.LogError(e, $"Error saving records {entities.Length} of type {typeof(T).Name}");
             }
-            
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader, consumer);
             ConfigureRepository<c_CodigoPostal>(serviceProvider, loader, consumer);
 
-            loader.UploadFile();
+            loader.UploadFile().Wait();
 
             System.Console.ReadLine();
         }
@@ -44,10 +44,10 @@ namespace Labs.Excel.Loader.Console
         private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader, IConsumer consumer) 
             where T : class, new()
         {
-            const int batchSize = 50000;
+            const int batchSize = 10000;
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
-            var aduanaRepository = serviceProvider.GetService<IRepository<T>>();
-            loader.ConfigureEntity(consumer.Transform<T>, aduanaRepository.BulkInsert, batchSize, linkOptions);
+            var repository = serviceProvider.GetService<IRepository<T>>();
+            loader.ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
         }
 
         private static void ConfigureServices(IConfiguration config, IServiceCollection serviceCollection)
@@ -59,12 +59,14 @@ namespace Labs.Excel.Loader.Console
             {
                 loggingBuilder.ClearProviders();
                 loggingBuilder.AddNLog(config);
+                loggingBuilder.AddConsole();
             });
 
             serviceCollection.AddDbContext<DbCatalogContext>(options =>
             {
                 options.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
             });
+
             //TODO : Move to factory
             EntityFrameworkManager.ContextFactory = context =>
             {
