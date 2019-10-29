@@ -8,7 +8,6 @@ using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using Z.EntityFramework.Extensions;
 
 namespace Labs.Excel.Loader.Console
 {
@@ -36,7 +35,7 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader, consumer);
             ConfigureRepository<c_CodigoPostal>(serviceProvider, loader, consumer);
 
-            loader.UploadFile().Wait();
+            loader.UploadFile();
 
             System.Console.ReadLine();
         }
@@ -62,20 +61,8 @@ namespace Labs.Excel.Loader.Console
                 loggingBuilder.AddConsole();
             });
 
-            serviceCollection.AddDbContext<DbCatalogContext>(options =>
-            {
-                options.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
-            });
-
-            //TODO : Move to factory
-            EntityFrameworkManager.ContextFactory = context =>
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<DbCatalogContext>();
-                optionsBuilder.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
-                return new DbCatalogContext(optionsBuilder.Options);
-            };
-
             serviceCollection.AddSingleton(config);
+            serviceCollection.AddSingleton(ctx => new ConnectionStringHelper(config.GetConnectionString("DbCatalog")));
             serviceCollection.AddSingleton(ctx => new BufferBlock<Message>(new DataflowBlockOptions
             {
                 BoundedCapacity = DataflowBlockOptions.Unbounded,

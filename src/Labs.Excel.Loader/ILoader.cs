@@ -11,6 +11,6 @@ namespace Labs.Excel.Loader
             where T : class;
 
 
-        Task UploadFile();
+        void UploadFile();
     }
 }

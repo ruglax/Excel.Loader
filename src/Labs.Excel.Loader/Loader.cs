@@ -26,21 +26,18 @@ namespace Labs.Excel.Loader
 
         public BufferBlock<Message> BufferBlock => _bufferBlock;
 
-        public async Task UploadFile()
+        public void UploadFile()
         {
             var worbook = _worbookReader.ReadWorkbook();
             var activeDefinictions = _worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
-            //Parallel.ForEach(activeDefinictions, async definition =>
-            //{
-            foreach (var definition in activeDefinictions)
+            Parallel.ForEach(activeDefinictions, async definition =>
             {
                 if (definition != null)
                 {
                     var sheetReader = new SheetReader(worbook, _bufferBlock);
                     await sheetReader.ReadSheetAsync(definition);
                 }
-            }
-            //});
+            });
 
             _bufferBlock.Complete();
         }
