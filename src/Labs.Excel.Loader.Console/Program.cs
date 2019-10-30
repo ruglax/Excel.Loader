@@ -58,7 +58,7 @@ namespace Labs.Excel.Loader.Console
             {
                 loggingBuilder.ClearProviders();
                 loggingBuilder.AddNLog(config);
-                loggingBuilder.AddConsole();
+                //loggingBuilder.AddConsole();
             });
 
             serviceCollection.AddSingleton(config);

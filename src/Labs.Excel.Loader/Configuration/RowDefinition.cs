@@ -9,5 +9,7 @@
         public string PropertyName { get; set; }
 
         public string Mask { get; set; }
+
+        public bool Nullable { get; set; } = false;
     }
 }

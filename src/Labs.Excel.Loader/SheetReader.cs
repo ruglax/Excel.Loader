@@ -15,29 +15,35 @@ namespace Labs.Excel.Loader
 
         private readonly ITargetBlock<Message> _targetBlock;
 
+        private readonly CatalogDefinition _catalogDefinition;
+
         private bool _startProcess;
 
-        public SheetReader(IWorkbook workbook, ITargetBlock<Message> targetBlock)
+        public SheetReader(IWorkbook workbook, ITargetBlock<Message> targetBlock, CatalogDefinition catalogDefinition)
         {
             _workbook = workbook;
             _targetBlock = targetBlock;
+            _catalogDefinition = catalogDefinition;
         }
 
-        public async Task ReadSheetAsync(CatalogDefinition catalogDefinition)
+        public async Task ReadSheetAsync()
         {
-            var sheets = catalogDefinition.SheetName.Split(',');
-            foreach (var sheet in sheets)
+            var sheets = _catalogDefinition?.SheetName?.Split(',');
+            if (sheets != null)
             {
-                await ReadSheet(catalogDefinition, sheet.Trim());
+                foreach (var sheet in sheets)
+                {
+                    await ReadSheet(sheet.Trim());
+                }
             }
         }
 
-        private async Task ReadSheet(CatalogDefinition catalogDefinition, string sheetName)
+        private async Task ReadSheet(string sheetName)
         {
             var sheet = _workbook.GetSheet(sheetName);
             if (sheet == null) return;
 
-            RowDefinition clave = catalogDefinition.Rows
+            RowDefinition clave = _catalogDefinition.Rows
                 .OrderBy(p => p.Index)
                 .FirstOrDefault();
 
@@ -50,8 +56,8 @@ namespace Labs.Excel.Loader
                     if (row == null)
                         continue;
 
-                    var temp = row.GetCell(0)?.ToString();
-                    if (!_startProcess && temp == clave?.Name)
+                    var tempValue = row.GetCell(0)?.ToString();
+                    if (!_startProcess && tempValue == clave?.Name)
                     {
                         _startProcess = true;
                         continue;
@@ -59,13 +65,13 @@ namespace Labs.Excel.Loader
 
                     if (_startProcess)
                     {
-                        var jtoken = WriteJson(row, catalogDefinition);
+                        var jtoken = WriteJson(row, _catalogDefinition);
                         if (jtoken != null)
                         {
                             await _targetBlock.SendAsync(new Message
                             {
                                 RecordIndex = records,
-                                Type = catalogDefinition.EntityName ?? catalogDefinition.SheetName,
+                                Type = _catalogDefinition.EntityName ?? _catalogDefinition.SheetName,
                                 JToken = jtoken
                             });
 
@@ -81,8 +87,6 @@ namespace Labs.Excel.Loader
                     //Console.WriteLine("----------------------");
                 }
             }
-
-            Console.WriteLine($"Founded records {sheet.SheetName}: {records}");
         }
 
         private JToken WriteJson(IRow row, CatalogDefinition catalogDefinition)
@@ -92,6 +96,11 @@ namespace Labs.Excel.Loader
             foreach (var rowDefinition in catalogDefinition.Rows)
             {
                 ICell cell = row.GetCell(rowDefinition.Index);
+                //if (cell.CellType == CellType.Blank && !rowDefinition.Nullable)
+                //{
+                //    return null;
+                //}
+
                 writer.WritePropertyName(rowDefinition.PropertyName);
                 if (string.IsNullOrWhiteSpace(rowDefinition.Mask))
                 {

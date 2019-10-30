@@ -34,8 +34,7 @@ namespace Labs.Excel.Loader
             {
                 if (definition != null)
                 {
-                    var sheetReader = new SheetReader(worbook, _bufferBlock);
-                    await sheetReader.ReadSheetAsync(definition);
+                    await new SheetReader(worbook, _bufferBlock, definition).ReadSheetAsync();
                 }
             });
 
