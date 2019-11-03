@@ -29,25 +29,26 @@ namespace Labs.Excel.Loader.Console
 
 
             var loader = serviceProvider.GetService<ILoader>();
-            var consumer = serviceProvider.GetService<IConsumer>();
+            
 
-            ConfigureRepository<c_Aduana>(serviceProvider, loader, consumer);
-            ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader, consumer);
-            ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader, consumer);
-            ConfigureRepository<c_CodigoPostal>(serviceProvider, loader, consumer);
+            ConfigureRepository<c_Aduana>(serviceProvider, loader);
+            ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader);
+            ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader);
+            ConfigureRepository<c_CodigoPostal>(serviceProvider, loader);
 
             loader.UploadFile();
 
             System.Console.ReadLine();
         }
 
-        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader, IConsumer consumer) 
+        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
             where T : class, new()
         {
             const int batchSize = 50000;
+            var consumer = serviceProvider.GetService<IConsumer>();
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
-            var aduanaRepository = serviceProvider.GetService<IRepository<T>>();
-            loader.ConfigureEntity(consumer.Transform<T>, aduanaRepository.BulkInsert, batchSize, linkOptions);
+            var repository = serviceProvider.GetService<IRepository<T>>();
+            loader.ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
         }
 
         private static void ConfigureServices(IConfiguration config, IServiceCollection serviceCollection)
@@ -61,18 +62,7 @@ namespace Labs.Excel.Loader.Console
                 loggingBuilder.AddNLog(config);
             });
 
-            serviceCollection.AddDbContext<DbCatalogContext>(options =>
-            {
-                options.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
-            });
-            //TODO : Move to factory
-            EntityFrameworkManager.ContextFactory = context =>
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<DbCatalogContext>();
-                optionsBuilder.UseSqlServer("server=.\\STAMPING;database=DBCATALOGOSv4;trusted_connection=true;User Id=sa;Password=123;");
-                return new DbCatalogContext(optionsBuilder.Options);
-            };
-
+            serviceCollection.AddSingleton(ctx => new ConnectionStringHelper(config.GetConnectionString("DbCatalog")));
             serviceCollection.AddSingleton(config);
             serviceCollection.AddSingleton(ctx => new BufferBlock<Message>(new DataflowBlockOptions
             {

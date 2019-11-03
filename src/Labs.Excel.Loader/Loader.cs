@@ -29,17 +29,26 @@ namespace Labs.Excel.Loader
         public void UploadFile()
         {
             var worbook = _worbookReader.ReadWorkbook();
-            var activeDefinictions = _worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
-            Parallel.ForEach(activeDefinictions, async definition =>
+            var definitions = _worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
+            //Parallel.ForEach(definitions, definition =>
+            //{
+            //    if (definition != null)
+            //    {
+            //        var sheetReader = new SheetReader(worbook, _bufferBlock);
+            //        sheetReader.ReadSheet(definition);
+            //    }
+            //});
+            foreach (var definition in definitions)
             {
                 if (definition != null)
                 {
                     var sheetReader = new SheetReader(worbook, _bufferBlock);
-                    await sheetReader.ReadSheetAsync(definition);
+                    sheetReader.ReadSheet(definition);
                 }
-            });
+            }
 
             _bufferBlock.Complete();
+            _logger.LogInformation("Process completed");
         }
 
         public void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)
