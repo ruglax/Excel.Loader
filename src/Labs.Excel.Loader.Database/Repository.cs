@@ -42,8 +42,9 @@ namespace Labs.Excel.Loader.Database
                     FillDataTable(table, properties, entities);
                     using (SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString()))
                     {
+                        copy.BulkCopyTimeout = 120;
                         copy.DestinationTableName = _key;
-                        await copy.WriteToServerAsync(table);
+                        copy.WriteToServer(table);
                     }
                 }
             }

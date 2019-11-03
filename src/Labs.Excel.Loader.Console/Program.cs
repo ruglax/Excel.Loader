@@ -28,22 +28,23 @@ namespace Labs.Excel.Loader.Console
 
 
             var loader = serviceProvider.GetService<ILoader>();
-            var consumer = serviceProvider.GetService<IConsumer>();
+            
 
-            ConfigureRepository<c_Aduana>(serviceProvider, loader, consumer);
-            ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader, consumer);
-            ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader, consumer);
-            ConfigureRepository<c_CodigoPostal>(serviceProvider, loader, consumer);
+            ConfigureRepository<c_Aduana>(serviceProvider, loader);
+            ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader);
+            ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader);
+            ConfigureRepository<c_CodigoPostal>(serviceProvider, loader);
 
             loader.UploadFile();
 
             System.Console.ReadLine();
         }
 
-        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader, IConsumer consumer) 
+        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
             where T : class, new()
         {
-            const int batchSize = 10000;
+            const int batchSize = 50000;
+            var consumer = serviceProvider.GetService<IConsumer>();
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
             var repository = serviceProvider.GetService<IRepository<T>>();
             loader.ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
