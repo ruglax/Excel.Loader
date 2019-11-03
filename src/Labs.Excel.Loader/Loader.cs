@@ -15,52 +15,42 @@ namespace Labs.Excel.Loader
 
         private readonly IWorbookReader _worbookReader;
 
-        private readonly BufferBlock<Message> _bufferBlock;
-
         public Loader(ILogger<Loader> logger, IWorbookReader worbookReader, BufferBlock<Message> bufferBlock)
         {
             _logger = logger;
             _worbookReader = worbookReader;
-            _bufferBlock = bufferBlock;
+            BufferBlock = bufferBlock;
         }
 
-        public BufferBlock<Message> BufferBlock => _bufferBlock;
+        public BufferBlock<Message> BufferBlock { get; }
 
         public void UploadFile()
         {
             var worbook = _worbookReader.ReadWorkbook();
             var definitions = _worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
-            //Parallel.ForEach(definitions, definition =>
-            //{
-            //    if (definition != null)
-            //    {
-            //        var sheetReader = new SheetReader(worbook, _bufferBlock);
-            //        sheetReader.ReadSheet(definition);
-            //    }
-            //});
             foreach (var definition in definitions)
             {
                 if (definition != null)
                 {
-                    var sheetReader = new SheetReader(worbook, _bufferBlock);
+                    var sheetReader = new SheetReader(worbook, BufferBlock);
                     sheetReader.ReadSheet(definition);
                 }
             }
 
-            _bufferBlock.Complete();
+            BufferBlock.Complete();
             _logger.LogInformation("Process completed");
         }
 
-        public void ConfigureEntity<T>(Func<Message, T> action, Func<T[], Task> execution, int batchSize, DataflowLinkOptions linkOptions)
+        public void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)
             where T : class
         {
             var transformBlock = new TransformBlock<Message, T>(action);
             var batchBlock = new BatchBlock<T>(batchSize);
-            var actionBlock = new ActionBlock<T[]>(async m =>
+            var actionBlock = new ActionBlock<T[]>(m =>
             {
                 var temp = m.Where(x => x != null).ToArray();
                 _logger.LogDebug($"Bulk insert {temp.GetType().Name} - {temp.Length}");
-                await execution.Invoke(temp);
+                execution.Invoke(temp);
             });
 
             batchBlock.LinkTo(actionBlock, linkOptions);

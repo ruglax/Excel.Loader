@@ -7,7 +7,7 @@ namespace Labs.Excel.Loader
 {
     public interface ILoader
     {
-        void ConfigureEntity<T>(Func<Message, T> action, Func<T[], Task> execution, int batchSize, DataflowLinkOptions linkOptions)
+        void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)
             where T : class;
 
 

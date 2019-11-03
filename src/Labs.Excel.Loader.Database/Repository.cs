@@ -30,7 +30,7 @@ namespace Labs.Excel.Loader.Database
             Init();
         }
 
-        public async Task BulkInsert(T[] entities)
+        public void BulkInsert(T[] entities)
         {
             try
             {

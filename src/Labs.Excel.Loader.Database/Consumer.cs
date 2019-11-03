@@ -30,7 +30,7 @@ namespace Labs.Excel.Loader.Database
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Error deserializing object type: {typeof(T).Name}");
+                //_logger.LogError(e, $"Error deserializing object type: {typeof(T).Name}");
             }
 
             return null;
