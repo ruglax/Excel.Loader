@@ -1,7 +1,9 @@
-﻿namespace Labs.Excel.Loader.Database
+﻿using System.Threading.Tasks;
+
+namespace Labs.Excel.Loader.Database
 {
     public interface IRepository<T> where T : class, new()
     {
-        void BulkInsert(T[] entities);
+        Task BulkInsert(T[] entities);
     }
 }

@@ -51,16 +51,16 @@ namespace Labs.Excel.Loader
             _logger.LogInformation("Process completed");
         }
 
-        public void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)
+        public void ConfigureEntity<T>(Func<Message, T> action, Func<T[], Task> execution, int batchSize, DataflowLinkOptions linkOptions)
             where T : class
         {
             var transformBlock = new TransformBlock<Message, T>(action);
             var batchBlock = new BatchBlock<T>(batchSize);
-            var actionBlock = new ActionBlock<T[]>(m =>
+            var actionBlock = new ActionBlock<T[]>(async m =>
             {
                 var temp = m.Where(x => x != null).ToArray();
                 _logger.LogDebug($"Bulk insert {temp.GetType().Name} - {temp.Length}");
-                execution.Invoke(temp);
+                await execution.Invoke(temp);
             });
 
             batchBlock.LinkTo(actionBlock, linkOptions);

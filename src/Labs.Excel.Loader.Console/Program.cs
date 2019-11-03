@@ -8,7 +8,6 @@ using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using Z.EntityFramework.Extensions;
 
 namespace Labs.Excel.Loader.Console
 {
@@ -60,10 +59,11 @@ namespace Labs.Excel.Loader.Console
             {
                 loggingBuilder.ClearProviders();
                 loggingBuilder.AddNLog(config);
+                loggingBuilder.AddConsole();
             });
 
-            serviceCollection.AddSingleton(ctx => new ConnectionStringHelper(config.GetConnectionString("DbCatalog")));
             serviceCollection.AddSingleton(config);
+            serviceCollection.AddSingleton(ctx => new ConnectionStringHelper(config.GetConnectionString("DbCatalog")));
             serviceCollection.AddSingleton(ctx => new BufferBlock<Message>(new DataflowBlockOptions
             {
                 BoundedCapacity = DataflowBlockOptions.Unbounded,
