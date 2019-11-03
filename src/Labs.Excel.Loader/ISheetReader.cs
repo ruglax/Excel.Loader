@@ -5,6 +5,6 @@ namespace Labs.Excel.Loader
 {
     public interface ISheetReader
     {
-        Task ReadSheetAsync();
+        void ReadSheet(CatalogDefinition catalogDefinition);
     }
 }

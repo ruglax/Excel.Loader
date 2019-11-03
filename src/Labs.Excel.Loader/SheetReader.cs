@@ -26,19 +26,16 @@ namespace Labs.Excel.Loader
             _catalogDefinition = catalogDefinition;
         }
 
-        public async Task ReadSheetAsync()
+        public void ReadSheet(CatalogDefinition catalogDefinition)
         {
             var sheets = _catalogDefinition?.SheetName?.Split(',');
             if (sheets != null)
             {
-                foreach (var sheet in sheets)
-                {
-                    await ReadSheet(sheet.Trim());
-                }
+                ReadSheet(catalogDefinition, sheet.Trim());
             }
         }
 
-        private async Task ReadSheet(string sheetName)
+        private void ReadSheet(CatalogDefinition catalogDefinition, string sheetName)
         {
             var sheet = _workbook.GetSheet(sheetName);
             if (sheet == null) return;
@@ -68,7 +65,7 @@ namespace Labs.Excel.Loader
                         var jtoken = WriteJson(row, _catalogDefinition);
                         if (jtoken != null)
                         {
-                            await _targetBlock.SendAsync(new Message
+                            _targetBlock.Post(new Message
                             {
                                 RecordIndex = records,
                                 Type = _catalogDefinition.EntityName ?? _catalogDefinition.SheetName,
