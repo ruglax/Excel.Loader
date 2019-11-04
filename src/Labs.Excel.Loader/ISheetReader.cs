@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Labs.Excel.Loader.Configuration;
+﻿using Labs.Excel.Loader.Configuration;
 
 namespace Labs.Excel.Loader
 {

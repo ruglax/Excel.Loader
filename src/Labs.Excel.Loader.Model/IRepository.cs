@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Labs.Excel.Loader.Database
+﻿namespace Labs.Excel.Loader.Model
 {
     public interface IRepository<T> where T : class, new()
     {

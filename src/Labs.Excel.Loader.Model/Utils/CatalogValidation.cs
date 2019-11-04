@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace Labs.Excel.Loader.Database.Utils
+namespace Labs.Excel.Loader.Model.Utils
 {
     public static class CatalogValidation
     {

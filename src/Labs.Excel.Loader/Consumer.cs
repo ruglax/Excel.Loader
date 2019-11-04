@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Concurrent;
+﻿using System;
 using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 
-namespace Labs.Excel.Loader.Database
+namespace Labs.Excel.Loader
 {
     public class Consumer : IConsumer
     {
@@ -30,7 +29,7 @@ namespace Labs.Excel.Loader.Database
             }
             catch (Exception e)
             {
-                //_logger.LogError(e, $"Error deserializing object type: {typeof(T).Name}");
+                _logger.LogDebug(e, $"Error deserializing object type: {typeof(T).Name}");
             }
 
             return null;

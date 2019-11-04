@@ -5,7 +5,6 @@ using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Labs.Excel.Loader.Database;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
@@ -59,7 +58,6 @@ namespace Labs.Excel.Loader.Console
             {
                 loggingBuilder.ClearProviders();
                 loggingBuilder.AddNLog(config);
-                //loggingBuilder.AddConsole();
             });
 
             serviceCollection.AddSingleton(config);
@@ -75,8 +73,7 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<IRepository<c_ClaveProdServ>, Repository<c_ClaveProdServ>>();
             serviceCollection.AddTransient<IRepository<c_ClaveUnidad>, Repository<c_ClaveUnidad>>();
             serviceCollection.AddTransient<IRepository<c_CodigoPostal>, Repository<c_CodigoPostal>>();
-            
-
+            serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();
         }

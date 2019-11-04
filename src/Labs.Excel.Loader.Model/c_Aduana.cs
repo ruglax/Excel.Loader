@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Labs.Excel.Loader.Database
+namespace Labs.Excel.Loader.Model
 {
     public class c_Aduana
     {

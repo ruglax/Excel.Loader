@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Labs.Excel.Loader.Configuration
+﻿namespace Labs.Excel.Loader.Configuration
 {
     public enum ColumnType
     {

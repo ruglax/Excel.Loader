@@ -4,8 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Logging;
 
 namespace Labs.Excel.Loader.Database

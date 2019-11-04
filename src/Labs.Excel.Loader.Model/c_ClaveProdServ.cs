@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using Labs.Excel.Loader.Database.Utils;
+using Labs.Excel.Loader.Model.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Labs.Excel.Loader.Database
+namespace Labs.Excel.Loader.Model
 {
     public class c_ClaveProdServ
     {
