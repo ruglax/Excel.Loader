@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Labs.Excel.Loader.Database
+namespace Labs.Excel.Loader.Model
 {
     public class c_ClaveUnidad
     {
