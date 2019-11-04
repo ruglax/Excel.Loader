@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 
 namespace Labs.Excel.Loader
 {
@@ -15,10 +12,13 @@ namespace Labs.Excel.Loader
 
         private readonly IWorbookReader _worbookReader;
 
-        public Loader(ILogger<Loader> logger, IWorbookReader worbookReader, BufferBlock<Message> bufferBlock)
+        private readonly ISheetReaderFactory _sheetReaderFactory;
+
+        public Loader(ILogger<Loader> logger, IWorbookReader worbookReader, ISheetReaderFactory sheetReaderFactory, BufferBlock<Message> bufferBlock)
         {
             _logger = logger;
             _worbookReader = worbookReader;
+            _sheetReaderFactory = sheetReaderFactory;
             BufferBlock = bufferBlock;
         }
 
@@ -26,13 +26,14 @@ namespace Labs.Excel.Loader
 
         public void UploadFile()
         {
+            _logger.LogInformation($"Starting upload processs {_worbookReader.CatalogConfiguration.FilePath}", _worbookReader);
             var worbook = _worbookReader.ReadWorkbook();
             var definitions = _worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
             foreach (var definition in definitions)
             {
                 if (definition != null)
                 {
-                    var sheetReader = new SheetReader(worbook, BufferBlock);
+                    var sheetReader = _sheetReaderFactory.CreateInstance(worbook, BufferBlock);
                     sheetReader.ReadSheet(definition);
                 }
             }

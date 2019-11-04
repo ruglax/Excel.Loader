@@ -1,4 +1,4 @@
-﻿namespace Labs.Excel.Loader.Database.Utils
+﻿namespace Labs.Excel.Loader.Model.Utils
 {
     public enum CatalogValidationOptions
     {
