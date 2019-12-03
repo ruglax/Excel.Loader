@@ -216,7 +216,7 @@
     },
     {
       "sheetName": "c_Impuesto",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "0",
       "rows": [
@@ -250,6 +250,29 @@
           "Index": 5,
           "Name": "Entidad en la que aplica",
           "PropertyName": "Entidad"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_MetodoPago",
+      "active": true,
+      "version": "2.0",
+      "revision": "0",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_MetodoPago",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
         }
       ]
     }

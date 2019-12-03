@@ -33,6 +33,7 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_CodigoPostal>(serviceProvider, loader);
             ConfigureRepository<c_FormaPago>(serviceProvider, loader);
             ConfigureRepository<c_Impuesto>(serviceProvider, loader);
+            ConfigureRepository<c_MetodoPago>(serviceProvider, loader);
 
             loader.UploadFile();
 
@@ -65,6 +66,7 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<IRepository<c_CodigoPostal>, Repository<c_CodigoPostal>>();
             serviceCollection.AddTransient<IRepository<c_FormaPago>, Repository<c_FormaPago>>();
             serviceCollection.AddTransient<IRepository<c_Impuesto>, Repository<c_Impuesto>>();
+            serviceCollection.AddTransient<IRepository<c_MetodoPago>, Repository<c_MetodoPago>>();
             serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();

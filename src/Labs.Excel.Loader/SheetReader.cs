@@ -120,7 +120,14 @@ namespace Labs.Excel.Loader
                 case CellType.String:
                     return cell.ToString();
                 case CellType.Numeric:
-                    return cell.NumericCellValue;
+                    try
+                    {
+                        return cell.DateCellValue;
+                    }
+                    catch (Exception)
+                    {
+                        return cell.NumericCellValue;
+                    }
                 case CellType.Formula:
                     return cell.StringCellValue;
                 default:
