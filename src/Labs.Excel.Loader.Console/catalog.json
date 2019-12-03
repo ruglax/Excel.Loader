@@ -278,7 +278,7 @@
     },
     {
       "sheetName": "c_Moneda",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -302,6 +302,39 @@
           "Name": "Porcentaje variación",
           "PropertyName": "PorcentajeVariacionRaw",
           "Mask": "0:##%"
+        },
+        {
+          "Index": 4,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_NumPedimentoAduana",
+      "active": true,
+      "version": "37.0",
+      "revision": "0",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_Aduana",
+          "PropertyName": "Aduana"
+        },
+        {
+          "Index": 1,
+          "Name": "Patente",
+          "PropertyName": "Patente"
+        },
+        {
+          "Index": 2,
+          "Name": "Ejercicio",
+          "PropertyName": "Ejercicio"
+        },
+        {
+          "Index": 3,
+          "Name": "Cantidad",
+          "PropertyName": "Cantidad"
         },
         {
           "Index": 4,

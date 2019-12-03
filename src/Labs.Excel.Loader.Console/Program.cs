@@ -35,6 +35,7 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_Impuesto>(serviceProvider, loader);
             ConfigureRepository<c_MetodoPago>(serviceProvider, loader);
             ConfigureRepository<c_Moneda>(serviceProvider, loader);
+            ConfigureRepository<c_NumPedimentoAduana>(serviceProvider, loader);
 
             loader.UploadFile();
 
@@ -69,6 +70,7 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<IRepository<c_Impuesto>, Repository<c_Impuesto>>();
             serviceCollection.AddTransient<IRepository<c_MetodoPago>, Repository<c_MetodoPago>>();
             serviceCollection.AddTransient<IRepository<c_Moneda>, Repository<c_Moneda>>();
+            serviceCollection.AddTransient<IRepository<c_NumPedimentoAduana>, Repository<c_NumPedimentoAduana>>();
             serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();
