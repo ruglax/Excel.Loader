@@ -39,6 +39,7 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_FormaPago>().ToTable("c_FormaPago").HasKey(p => p.Clave);
             modelBuilder.Entity<c_Impuesto>().ToTable("c_Impuesto").HasKey(p => p.Clave);
             modelBuilder.Entity<c_MetodoPago>().ToTable("c_MetodoPago").HasKey(p => p.Clave);
+            modelBuilder.Entity<c_Moneda>().ToTable("c_Moneda").HasKey(p => p.Clave);
         }
     }
 }

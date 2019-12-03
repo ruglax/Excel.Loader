@@ -33,7 +33,7 @@ namespace Labs.Excel.Loader.Database
         {
             try
             {
-                _logger.LogDebug($"Saving records {entities.Length} of type {_key}");
+                _logger.LogInformation($"Saving records {entities.Length} of type {_key}");
                 if (PropertyInfoCache.TryGetValue(_key, out var properties))
                 {
                     var table = CreateDataTable(properties);
@@ -45,6 +45,8 @@ namespace Labs.Excel.Loader.Database
                         copy.DestinationTableName = _key;
                         copy.WriteToServer(table);
                     }
+
+                    _logger.LogInformation($"Saved  {entities.Length} records of type {_key}");
                 }
             }
             catch (Exception e)

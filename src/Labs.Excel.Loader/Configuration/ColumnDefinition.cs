@@ -1,6 +1,6 @@
 ﻿namespace Labs.Excel.Loader.Configuration
 {
-    public class RowDefinition
+    public class ColumnDefinition
     {
         public short Index { get; set; }
 

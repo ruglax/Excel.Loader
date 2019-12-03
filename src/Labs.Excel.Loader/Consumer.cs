@@ -1,6 +1,8 @@
 ﻿using System;
 using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace Labs.Excel.Loader
@@ -19,9 +21,13 @@ namespace Labs.Excel.Loader
             try
             {
                 Type type = typeof(T);
-                _logger.LogDebug( $"Processing entity: {type.Name}", message);
+                _logger.LogDebug($"Processing entity: {type.Name}", message);
                 JObject jobject = message.JToken as JObject;
-                T entity = (T) jobject?.ToObject(type);
+
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Converters.Add(new IsoDateTimeConverter { DateTimeFormat = "dd/MM/yyyy" });
+
+                T entity = (T)jobject?.ToObject(type, serializer);
                 if (entity != null)
                 {
                     return entity;

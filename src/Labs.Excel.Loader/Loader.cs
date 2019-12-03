@@ -39,7 +39,7 @@ namespace Labs.Excel.Loader
             }
 
             BufferBlock.Complete();
-            _logger.LogInformation("Process completed");
+            _logger.LogInformation("Reader process completed");
         }
 
         public void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)

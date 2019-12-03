@@ -6,7 +6,7 @@
       "active": false,
       "version": "1.0",
       "revision": "1",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_Aduana",
@@ -30,7 +30,7 @@
       "active": false,
       "version": "1.0",
       "revision": "1",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_ClaveUnidad",
@@ -58,7 +58,7 @@
       "active": false,
       "version": "2.0",
       "revision": "2",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_ClaveProdServ",
@@ -102,7 +102,7 @@
       "active": false,
       "version": "4.0",
       "revision": "1",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_CodigoPostal",
@@ -145,7 +145,7 @@
       "active": false,
       "version": "1.0",
       "revision": "0",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_FormaPago",
@@ -219,7 +219,7 @@
       "active": false,
       "version": "1.0",
       "revision": "0",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_Impuesto",
@@ -255,10 +255,10 @@
     },
     {
       "sheetName": "c_MetodoPago",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
-      "rows": [
+      "columns": [
         {
           "Index": 0,
           "Name": "c_MetodoPago",
@@ -271,6 +271,40 @@
         },
         {
           "Index": 2,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_Moneda",
+      "active": true,
+      "version": "2.0",
+      "revision": "0",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_Moneda",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Decimales",
+          "PropertyName": "Decimales"
+        },
+        {
+          "Index": 3,
+          "Name": "Porcentaje variación",
+          "PropertyName": "PorcentajeVariacionRaw",
+          "Mask": "0:##%"
+        },
+        {
+          "Index": 4,
           "Name": "Fecha inicio de vigencia",
           "PropertyName": "FechaInicio"
         }

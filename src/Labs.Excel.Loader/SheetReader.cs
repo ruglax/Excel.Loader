@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
 using Labs.Excel.Loader.Configuration;
@@ -43,7 +44,7 @@ namespace Labs.Excel.Loader
             var sheet = _workbook.GetSheet(sheetName);
             if (sheet == null) return;
 
-            RowDefinition clave = catalogDefinition.Rows
+            ColumnDefinition clave = catalogDefinition.Columns
                 .OrderBy(p => p.Index)
                 .FirstOrDefault();
 
@@ -94,7 +95,7 @@ namespace Labs.Excel.Loader
         {
             JTokenWriter writer = new JTokenWriter();
             writer.WriteStartObject();
-            foreach (var rowDefinition in catalogDefinition.Rows)
+            foreach (var rowDefinition in catalogDefinition.Columns)
             {
                 ICell cell = row.GetCell(rowDefinition.Index);
                 writer.WritePropertyName(rowDefinition.PropertyName);
@@ -122,7 +123,14 @@ namespace Labs.Excel.Loader
                 case CellType.Numeric:
                     try
                     {
-                        return cell.DateCellValue;
+                        string temp = cell.ToString();
+                        if (DateTime.TryParseExact(temp, "dd/MM/yyyy", null, DateTimeStyles.None,
+                            out DateTime dateTemp))
+                        {
+                            return dateTemp;
+                        }
+
+                        return cell.NumericCellValue;
                     }
                     catch (Exception)
                     {

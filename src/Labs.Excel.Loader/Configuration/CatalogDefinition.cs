@@ -14,6 +14,6 @@ namespace Labs.Excel.Loader.Configuration
 
         public string Revision { get; set; }
 
-        public List<RowDefinition> Rows { get; set; }
+        public List<ColumnDefinition> Columns { get; set; }
     }
 }

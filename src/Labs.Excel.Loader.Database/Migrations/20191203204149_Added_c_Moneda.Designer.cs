@@ -4,14 +4,16 @@ using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Labs.Excel.Loader.Database.Migrations
 {
     [DbContext(typeof(DbCatalogosContext))]
-    partial class DbCatalogosContextModelSnapshot : ModelSnapshot
+    [Migration("20191203204149_Added_c_Moneda")]
+    partial class Added_c_Moneda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +188,7 @@ namespace Labs.Excel.Loader.Database.Migrations
 
                     b.Property<string>("Nombre");
 
-                    b.Property<short?>("PorcentajeVariacion");
+                    b.Property<short>("PorcentajeVariacion");
 
                     b.HasKey("Clave");
 
