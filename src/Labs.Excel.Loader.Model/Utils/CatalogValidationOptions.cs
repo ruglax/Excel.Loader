@@ -2,10 +2,16 @@
 {
     public enum CatalogValidationOptions
     {
-        NoExistir = 1,
+        SI = 1,
 
-        Opcional = 2,
+        NO = 2,
 
-        Obligatorio = 3,
+        OPCIONAL = 3,
+
+        EXPRESIONREGULAR = 4,
+
+        REGLAVALIDACION = 5,
+
+        UNDEFINED = 99
     }
 }

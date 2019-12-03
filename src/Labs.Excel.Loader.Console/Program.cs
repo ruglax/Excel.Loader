@@ -25,28 +25,18 @@ namespace Labs.Excel.Loader.Console
             ConfigureServices(configuration, serviceCollection);
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-
             var loader = serviceProvider.GetService<ILoader>();
             
-
             ConfigureRepository<c_Aduana>(serviceProvider, loader);
             ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader);
             ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader);
             ConfigureRepository<c_CodigoPostal>(serviceProvider, loader);
+            ConfigureRepository<c_FormaPago>(serviceProvider, loader);
+            ConfigureRepository<c_Impuesto>(serviceProvider, loader);
 
             loader.UploadFile();
 
             System.Console.ReadLine();
-        }
-
-        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
-            where T : class, new()
-        {
-            const int batchSize = 50000;
-            var consumer = serviceProvider.GetService<IConsumer>();
-            var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
-            var repository = serviceProvider.GetService<IRepository<T>>();
-            loader.ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
         }
 
         private static void ConfigureServices(IConfiguration config, IServiceCollection serviceCollection)
@@ -73,9 +63,21 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<IRepository<c_ClaveProdServ>, Repository<c_ClaveProdServ>>();
             serviceCollection.AddTransient<IRepository<c_ClaveUnidad>, Repository<c_ClaveUnidad>>();
             serviceCollection.AddTransient<IRepository<c_CodigoPostal>, Repository<c_CodigoPostal>>();
+            serviceCollection.AddTransient<IRepository<c_FormaPago>, Repository<c_FormaPago>>();
+            serviceCollection.AddTransient<IRepository<c_Impuesto>, Repository<c_Impuesto>>();
             serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();
+        }
+
+        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
+            where T : class, new()
+        {
+            const int batchSize = 50000;
+            var consumer = serviceProvider.GetService<IConsumer>();
+            var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
+            var repository = serviceProvider.GetService<IRepository<T>>();
+            loader.ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
         }
     }
 }

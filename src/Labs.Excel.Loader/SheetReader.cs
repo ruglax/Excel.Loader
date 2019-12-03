@@ -100,7 +100,7 @@ namespace Labs.Excel.Loader
                 writer.WritePropertyName(rowDefinition.PropertyName);
                 if (string.IsNullOrWhiteSpace(rowDefinition.Mask))
                 {
-                    writer.WriteValue(cell?.ToString() ?? string.Empty);
+                    writer.WriteValue(GetValue(cell) ?? string.Empty);
                 }
                 else
                 {
@@ -121,6 +121,8 @@ namespace Labs.Excel.Loader
                     return cell.ToString();
                 case CellType.Numeric:
                     return cell.NumericCellValue;
+                case CellType.Formula:
+                    return cell.StringCellValue;
                 default:
                     return cell.ToString();
             }

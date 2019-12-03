@@ -1,9 +1,9 @@
 {
-  "filepath": "D:\\User\\Downloads\\catCFDI.xlsx",
+  "filepath": "C:\\Users\\Raul Silva\\Downloads\\catCFDI.xlsx",
   "catalogDefinition": [
     {
       "sheetName": "c_Aduana",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "rows": [
@@ -27,7 +27,7 @@
     },
     {
       "sheetName": "c_ClaveUnidad",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "rows": [
@@ -55,7 +55,7 @@
     },
     {
       "sheetName": "c_ClaveProdServ",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "2",
       "rows": [
@@ -99,7 +99,7 @@
     {
       "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
       "entityName": "c_CodigoPostal",
-      "active": true,
+      "active": false,
       "version": "4.0",
       "revision": "1",
       "rows": [
@@ -137,6 +137,119 @@
           "Index": 6,
           "Name": "Fecha de fin de vigencia",
           "PropertyName": "FechaFin"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_FormaPago",
+      "active": false,
+      "version": "1.0",
+      "revision": "0",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_FormaPago",
+          "PropertyName": "Clave",
+          "Mask": "0:00"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Bancarizado",
+          "PropertyName": "BancarizadoRaw"
+        },
+        {
+          "Index": 3,
+          "Name": "Número de operación",
+          "PropertyName": "NumeroOperacionRaw"
+        },
+        {
+          "Index": 4,
+          "Name": "RFC del Emisor de la cuenta ordenante",
+          "PropertyName": "RfcEmisorCuentaOrdenanteRaw"
+        },
+        {
+          "Index": 5,
+          "Name": "Cuenta Ordenante",
+          "PropertyName": "CuentaOrdenanteRaw"
+        },
+        {
+          "Index": 6,
+          "Name": "Patrón para cuenta ordenante",
+          "PropertyName": "PatronCuentaOrdenanteRaw"
+        },
+        {
+          "Index": 7,
+          "Name": "RFC del Emisor Cuenta de Beneficiario",
+          "PropertyName": "RfcEmisorCuentaBeneficiarioRaw"
+        },
+        {
+          "Index": 8,
+          "Name": "Cuenta de Benenficiario",
+          "PropertyName": "CuentaBeneficiarioRaw"
+        },
+        {
+          "Index": 9,
+          "Name": "Patrón para cuenta Beneficiaria",
+          "PropertyName": "PatronCuentaBeneficiariaRaw"
+        },
+        {
+          "Index": 10,
+          "Name": "Tipo Cadena Pago",
+          "PropertyName": "TipoCadenaPagoRaw"
+        },
+        {
+          "Index": 11,
+          "Name": "Nombre del Banco emisor de la cuenta ordenante en caso de extranjero",
+          "PropertyName": "NombreBancoEmisorCuentaOrdenanteRaw"
+        },
+        {
+          "Index": 12,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_Impuesto",
+      "active": true,
+      "version": "1.0",
+      "revision": "0",
+      "rows": [
+        {
+          "Index": 0,
+          "Name": "c_Impuesto",
+          "PropertyName": "Clave",
+          "Mask": "0:000"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Retención",
+          "PropertyName": "RetencionRaw"
+        },
+        {
+          "Index": 3,
+          "Name": "Traslado",
+          "PropertyName": "TrasladoRaw"
+        },
+        {
+          "Index": 4,
+          "Name": "Local o federal",
+          "PropertyName": "LocalOFederal"
+        },
+        {
+          "Index": 5,
+          "Name": "Entidad en la que aplica",
+          "PropertyName": "Entidad"
         }
       ]
     }

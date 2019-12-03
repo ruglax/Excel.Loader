@@ -7,20 +7,22 @@ namespace Labs.Excel.Loader.Model.Utils
     {
         public static CatalogValidationOptions NormalizeCatalogValidation(IDictionary<string, JToken> additionalData, string property)
         {
-            string incluirIVA = additionalData.ContainsKey(property) ? (string)additionalData[property] : string.Empty;
-            incluirIVA = incluirIVA
+            string normalized = additionalData.ContainsKey(property) ? (string)additionalData[property] : string.Empty;
+            normalized = normalized
                 .Trim()
                 .ToUpper()
                 .Replace("Í", "I");
 
-            switch (incluirIVA)
+            switch (normalized)
             {
                 case "SI":
-                    return CatalogValidationOptions.Obligatorio;
+                    return CatalogValidationOptions.SI;
                 case "OPCIONAL":
-                    return CatalogValidationOptions.Opcional;
+                    return CatalogValidationOptions.OPCIONAL;
+                case "NO":
+                    return CatalogValidationOptions.NO;
                 default:
-                    return CatalogValidationOptions.NoExistir;
+                    return CatalogValidationOptions.UNDEFINED;
             }
         }
     }
