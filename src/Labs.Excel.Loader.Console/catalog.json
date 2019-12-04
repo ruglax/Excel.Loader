@@ -1,5 +1,5 @@
 {
-  "filepath": "D:\\User\\Downloads\\catCFDI.xlsx",
+  "filepath": "C:\\Users\\Raul Silva\\Downloads\\catCFDI.xlsx",
   "catalogDefinition": [
     {
       "sheetName": "c_Aduana",
@@ -402,7 +402,7 @@
     },
     {
       "sheetName": "c_RegimenFiscal",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "A",
       "columns": [
@@ -430,6 +430,61 @@
           "Index": 4,
           "Name": "Fecha de inicio de vigencia",
           "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_TasaOCuota",
+      "active": true,
+      "version": "2.0",
+      "revision": "0",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "Rango o Fijo",
+          "PropertyName": "TasaOCuotaTypeRaw"
+        },
+        {
+          "Index": 1,
+          "Name": "Valor mínimo",
+          "PropertyName": "ValorMinimo",
+          "Mask":  "0:0.000000" 
+        },
+        {
+          "Index": 2,
+          "Name": "Valor máximo",
+          "PropertyName": "ValorMaximo",
+          "Mask": "0:0.000000"
+        },
+        {
+          "Index": 3,
+          "Name": "Impuesto",
+          "PropertyName": "ImpuestoRaw"
+        },
+        {
+          "Index": 4,
+          "Name": "Factor",
+          "PropertyName": "Factor"
+        },
+        {
+          "Index": 5,
+          "Name": "Traslado",
+          "PropertyName": "TrasladoRaw"
+        },
+        {
+          "Index": 6,
+          "Name": "Retencion",
+          "PropertyName": "RetencionRaw"
+        },
+        {
+          "Index": 7,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        },
+        {
+          "Index": 8,
+          "Name": "Fecha fin de vigencia",
+          "PropertyName": "FechaFin"
         }
       ]
     }

@@ -32,6 +32,8 @@ namespace Labs.Excel.Loader.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //TODO: Extract logic to specific classes to map every column with max length
+
             modelBuilder.Entity<c_Aduana>().ToTable("c_Aduana").HasKey(p => p.Clave);
             modelBuilder.Entity<c_ClaveProdServ>().ToTable("c_ClaveProdServ").HasKey(p => p.Clave);
             modelBuilder.Entity<c_ClaveUnidad>().ToTable("c_ClaveUnidad").HasKey(p => p.Clave);
@@ -45,6 +47,8 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_Pais>().ToTable("c_Pais").HasKey(p => p.Clave);
             modelBuilder.Entity<c_PatenteAduanal>().ToTable("c_PatenteAduanal").HasKey(p => p.Clave);
             modelBuilder.Entity<c_RegimenFiscal>().ToTable("c_RegimenFiscal").HasKey(p => p.Clave);
+            modelBuilder.Entity<c_TasaOCuota>()
+                .ToTable("c_TasaOCuota").Property(t => t.Id).UseSqlServerIdentityColumn();
         }
     }
 }
