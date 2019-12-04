@@ -345,7 +345,7 @@
     },
     {
       "sheetName": "c_Pais",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -378,6 +378,25 @@
           "Index": 5,
           "Name": "Validación del Registro de Identidad Tributaria",
           "PropertyName": "Agrupaciones"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_PatenteAduanal",
+      "active": true,
+      "version": "29.0",
+      "revision": "0",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "C_PatenteAduanal",
+          "PropertyName": "Clave",
+          "Mask" :  "0:0000" 
+        },
+        {
+          "Index": 1,
+          "Name": "Inicio de vigencia de la patente",
+          "PropertyName": "FechaInicio"
         }
       ]
     }

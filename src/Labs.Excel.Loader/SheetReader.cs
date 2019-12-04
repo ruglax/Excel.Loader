@@ -58,7 +58,7 @@ namespace Labs.Excel.Loader
                         continue;
 
                     var temp = row.GetCell(0)?.ToString();
-                    if (!_startProcess && temp == clave?.Name)
+                    if (!_startProcess && temp?.ToUpper() == clave?.Name?.ToUpper())
                     {
                         _startProcess = true;
                         continue;
@@ -95,7 +95,7 @@ namespace Labs.Excel.Loader
         private JToken WriteJson(IRow row, CatalogDefinition catalogDefinition)
         {
             ICell cell = row.GetCell(0);
-            var tempCellValue = GetValue(cell) as string;
+            var tempCellValue = GetValue(cell)?.ToString();
             if (string.IsNullOrEmpty(tempCellValue))
                 return null;
 
