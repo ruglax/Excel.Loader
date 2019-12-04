@@ -91,13 +91,23 @@ namespace Labs.Excel.Loader
             _logger.LogInformation($"Founded records {sheet.SheetName}: {records}");
         }
 
+        //TODO: Mover a clase
         private JToken WriteJson(IRow row, CatalogDefinition catalogDefinition)
         {
+            ICell cell = row.GetCell(0);
+            var tempCellValue = GetValue(cell) as string;
+            if (string.IsNullOrEmpty(tempCellValue))
+                return null;
+
             JTokenWriter writer = new JTokenWriter();
             writer.WriteStartObject();
             foreach (var rowDefinition in catalogDefinition.Columns)
             {
-                ICell cell = row.GetCell(rowDefinition.Index);
+                cell = row.GetCell(rowDefinition.Index);
+                var value = GetValue(cell);
+                if (value == null && rowDefinition.Index == 0)
+                    break;
+
                 writer.WritePropertyName(rowDefinition.PropertyName);
                 if (string.IsNullOrWhiteSpace(rowDefinition.Mask))
                 {
@@ -114,6 +124,7 @@ namespace Labs.Excel.Loader
             return writer.Token;
         }
 
+        // TODO: Mover a clase
         private object GetValue(ICell cell)
         {
             switch (cell.CellType)

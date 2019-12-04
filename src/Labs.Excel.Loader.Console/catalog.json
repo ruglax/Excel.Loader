@@ -312,7 +312,7 @@
     },
     {
       "sheetName": "c_NumPedimentoAduana",
-      "active": true,
+      "active": false,
       "version": "37.0",
       "revision": "0",
       "columns": [
@@ -340,6 +340,44 @@
           "Index": 4,
           "Name": "Fecha inicio de vigencia",
           "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_Pais",
+      "active": true,
+      "version": "1.0",
+      "revision": "1",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_Pais",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Formato de código postal",
+          "PropertyName": "FormatoCodigoPostal"
+        },
+        {
+          "Index": 3,
+          "Name": "Formato de Registro de Identidad Tributaria",
+          "PropertyName": "FormatoRegistroIdentidad"
+        },
+        {
+          "Index": 4,
+          "Name": "Validación del Registro de Identidad Tributaria",
+          "PropertyName": "ValidacionRegistroIdentidad"
+        },
+        {
+          "Index": 5,
+          "Name": "Validación del Registro de Identidad Tributaria",
+          "PropertyName": "Agrupaciones"
         }
       ]
     }

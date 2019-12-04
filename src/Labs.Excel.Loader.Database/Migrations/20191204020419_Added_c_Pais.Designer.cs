@@ -4,14 +4,16 @@ using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Labs.Excel.Loader.Database.Migrations
 {
     [DbContext(typeof(DbCatalogosContext))]
-    partial class DbCatalogosContextModelSnapshot : ModelSnapshot
+    [Migration("20191204020419_Added_c_Pais")]
+    partial class Added_c_Pais
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

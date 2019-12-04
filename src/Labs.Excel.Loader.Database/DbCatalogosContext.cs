@@ -42,6 +42,7 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_Moneda>().ToTable("c_Moneda").HasKey(p => p.Clave);
             modelBuilder.Entity<c_NumPedimentoAduana>()
                 .ToTable("c_NumPedimentoAduana").Property(t => t.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<c_Pais>().ToTable("c_Pais").HasKey(p => p.Clave);
         }
     }
 }
