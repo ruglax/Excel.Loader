@@ -25,7 +25,23 @@ namespace Labs.Excel.Loader.Model
 
         public string ValorMinimo { get; set; }
 
+        public float ValorMinimoNumeric {
+            get
+            {
+                float.TryParse(ValorMinimo, out var temp);
+                return temp;
+            }
+        }
+
         public string ValorMaximo { get; set; }
+
+        public float ValorMaximoNumeric {
+            get
+            {
+                float.TryParse(ValorMaximo, out var temp);
+                return temp;
+            }
+        }
 
         /// <summary>
         /// Referencia al catálogo c_Impuesto

@@ -49,6 +49,7 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_RegimenFiscal>().ToTable("c_RegimenFiscal").HasKey(p => p.Clave);
             modelBuilder.Entity<c_TasaOCuota>()
                 .ToTable("c_TasaOCuota").Property(t => t.Id).UseSqlServerIdentityColumn();
+            modelBuilder.Entity<c_TipoDeComprobante>().ToTable("c_TipoDeComprobante").HasKey(p => p.Clave);
         }
     }
 }

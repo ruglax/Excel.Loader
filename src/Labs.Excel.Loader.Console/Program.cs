@@ -40,6 +40,7 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_PatenteAduanal>(serviceProvider, loader);
             ConfigureRepository<c_RegimenFiscal>(serviceProvider, loader);
             ConfigureRepository<c_TasaOCuota>(serviceProvider, loader);
+            ConfigureRepository<c_TipoDeComprobante>(serviceProvider, loader);
 
             loader.UploadFile();
 
@@ -79,6 +80,7 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<IRepository<c_PatenteAduanal>, Repository<c_PatenteAduanal>>();
             serviceCollection.AddTransient<IRepository<c_RegimenFiscal>, Repository<c_RegimenFiscal>>();
             serviceCollection.AddTransient<IRepository<c_TasaOCuota>, Repository<c_TasaOCuota>>();
+            serviceCollection.AddTransient<IRepository<c_TipoDeComprobante>, Repository<c_TipoDeComprobante>>();
 
             serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();

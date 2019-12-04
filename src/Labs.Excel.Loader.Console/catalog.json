@@ -435,7 +435,7 @@
     },
     {
       "sheetName": "c_TasaOCuota",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -448,7 +448,7 @@
           "Index": 1,
           "Name": "Valor mínimo",
           "PropertyName": "ValorMinimo",
-          "Mask":  "0:0.000000" 
+          "Mask": "0:0.000000"
         },
         {
           "Index": 2,
@@ -485,6 +485,35 @@
           "Index": 8,
           "Name": "Fecha fin de vigencia",
           "PropertyName": "FechaFin"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_TipoDeComprobante",
+      "active": true,
+      "version": "1.0",
+      "revision": "3",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_TipoDeComprobante",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Valor máximo",
+          "PropertyName": "ValorMaximo",
+          "Mask": "0:0.000000" 
+        },
+        {
+          "Index": 4,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
         }
       ]
     }
