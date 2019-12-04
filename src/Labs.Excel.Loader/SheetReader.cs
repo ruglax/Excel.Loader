@@ -130,6 +130,11 @@ namespace Labs.Excel.Loader
                             return dateTemp;
                         }
 
+                        if (DateTime.TryParse(temp, out dateTemp))
+                        {
+                            return dateTemp;
+                        }
+
                         return cell.NumericCellValue;
                     }
                     catch (Exception)

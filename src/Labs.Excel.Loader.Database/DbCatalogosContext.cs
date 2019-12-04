@@ -14,7 +14,7 @@ namespace Labs.Excel.Loader.Database
 
         public DbCatalogosContext()
         {
-            
+
         }
 
         public DbCatalogosContext(DbContextOptions<DbCatalogosContext> options) :
@@ -41,12 +41,7 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_MetodoPago>().ToTable("c_MetodoPago").HasKey(p => p.Clave);
             modelBuilder.Entity<c_Moneda>().ToTable("c_Moneda").HasKey(p => p.Clave);
             modelBuilder.Entity<c_NumPedimentoAduana>()
-                .ToTable("c_NumPedimentoAduana").HasKey(t => new
-                {
-                    t.Aduana,
-                    t.Patente,
-                    t.Ejercicio
-                });
+                .ToTable("c_NumPedimentoAduana").Property(t => t.Id).UseSqlServerIdentityColumn();
         }
     }
 }
