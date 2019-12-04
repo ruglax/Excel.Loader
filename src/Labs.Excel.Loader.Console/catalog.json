@@ -383,7 +383,7 @@
     },
     {
       "sheetName": "c_PatenteAduanal",
-      "active": true,
+      "active": false,
       "version": "29.0",
       "revision": "0",
       "columns": [
@@ -391,11 +391,44 @@
           "Index": 0,
           "Name": "C_PatenteAduanal",
           "PropertyName": "Clave",
-          "Mask" :  "0:0000" 
+          "Mask": "0:0000"
         },
         {
           "Index": 1,
           "Name": "Inicio de vigencia de la patente",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_RegimenFiscal",
+      "active": true,
+      "version": "1.0",
+      "revision": "A",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_RegimenFiscal",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Física",
+          "PropertyName": "FisicaRaw"
+        },
+        {
+          "Index": 3,
+          "Name": "Moral",
+          "PropertyName": "MoralRaw"
+        },
+        {
+          "Index": 4,
+          "Name": "Fecha de inicio de vigencia",
           "PropertyName": "FechaInicio"
         }
       ]
