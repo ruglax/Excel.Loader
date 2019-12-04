@@ -2,7 +2,7 @@
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_MetodoPago
+    public partial class c_MetodoPago
     {
         public string Clave { get; set; }
 

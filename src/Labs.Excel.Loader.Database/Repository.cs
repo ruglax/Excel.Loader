@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Labs.Excel.Loader.Database
 {
-    public class Repository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T>, IRepositoryAsync<T>
         where T : class, new()
     {
         private readonly ILogger<Repository<T>> _logger;
@@ -29,23 +29,53 @@ namespace Labs.Excel.Loader.Database
             Init();
         }
 
+        public void BulkInsertAsync(T[] entities)
+        {
+            Bulk(entities, async (table, percent) =>
+            {
+                using (SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString()))
+                {
+                    copy.BulkCopyTimeout = 300;
+                    copy.DestinationTableName = _key;
+                    copy.NotifyAfter = percent;
+                    copy.SqlRowsCopied += (sender, args) => _logger.LogInformation($"Processing  {args.RowsCopied} records of type {_key}");
+                    await copy.WriteToServerAsync(table);
+                }
+            });
+        }
+
         public void BulkInsert(T[] entities)
+        {
+            Bulk(entities, (table, percent) =>
+            {
+                using (SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString()))
+                {
+                    copy.BulkCopyTimeout = 300;
+                    copy.DestinationTableName = _key;
+                    copy.NotifyAfter = percent;
+                    copy.SqlRowsCopied += (sender, args) => _logger.LogInformation($"Processing  {args.RowsCopied} records of type {_key}");
+                    copy.WriteToServer(table);
+                }
+            });
+        }
+
+        public void Bulk(T[] entities, Action<DataTable, int> action)
         {
             try
             {
+                if (!entities.Any())
+                {
+                    _logger.LogInformation($"No entities of type {_key} to save");
+                    return;
+                }
+
+                var percent = entities.Length / 10;
                 _logger.LogInformation($"Saving records {entities.Length} of type {_key}");
                 if (PropertyInfoCache.TryGetValue(_key, out var properties))
                 {
-                    var table = CreateDataTable(properties);
-
+                    DataTable table = CreateDataTable(properties);
                     FillDataTable(table, properties, entities);
-                    using (SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString()))
-                    {
-                        copy.BulkCopyTimeout = 120;
-                        copy.DestinationTableName = _key;
-                        copy.WriteToServer(table);
-                    }
-
+                    action.Invoke(table, percent);
                     _logger.LogInformation($"Saved  {entities.Length} records of type {_key}");
                 }
             }
@@ -92,5 +122,7 @@ namespace Labs.Excel.Loader.Database
                 table.Rows.Add(properties.Select(p => p.GetValue(entity, null)).ToArray());
             }
         }
+
+
     }
 }

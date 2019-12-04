@@ -38,7 +38,8 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_ClaveProdServ>().ToTable("c_ClaveProdServ").HasKey(p => p.Clave);
             modelBuilder.Entity<c_ClaveUnidad>().ToTable("c_ClaveUnidad").HasKey(p => p.Clave);
             modelBuilder.Entity<c_CodigoPostal>().ToTable("c_CodigoPostal").HasKey(p => p.Clave);
-            modelBuilder.Entity<c_FormaPago>().ToTable("c_FormaPago").HasKey(p => p.Clave);
+            modelBuilder.Entity<c_FormaPago>()
+                .ToTable("c_FormaPago").HasKey(p => p.Clave);
             modelBuilder.Entity<c_Impuesto>().ToTable("c_Impuesto").HasKey(p => p.Clave);
             modelBuilder.Entity<c_MetodoPago>().ToTable("c_MetodoPago").HasKey(p => p.Clave);
             modelBuilder.Entity<c_Moneda>().ToTable("c_Moneda").HasKey(p => p.Clave);
@@ -50,6 +51,9 @@ namespace Labs.Excel.Loader.Database
             modelBuilder.Entity<c_TasaOCuota>()
                 .ToTable("c_TasaOCuota").Property(t => t.Id).UseSqlServerIdentityColumn();
             modelBuilder.Entity<c_TipoDeComprobante>().ToTable("c_TipoDeComprobante").HasKey(p => p.Clave);
+            modelBuilder.Entity<c_TipoFactor>().ToTable("c_TipoFactor").HasKey(p => p.Clave);
+            modelBuilder.Entity<c_TipoRelacion>().ToTable("c_TipoRelacion").HasKey(p => p.Clave);
+            modelBuilder.Entity<c_UsoCFDI>().ToTable("c_UsoCFDI").HasKey(p => p.Clave);
         }
     }
 }

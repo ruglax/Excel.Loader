@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_NumPedimentoAduana
+    public partial class c_NumPedimentoAduana
     {
         public string Aduana { get; set; }
 

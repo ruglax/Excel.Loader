@@ -1,4 +1,6 @@
-﻿namespace Labs.Excel.Loader.Configuration
+﻿using System.Collections.Generic;
+
+namespace Labs.Excel.Loader.Configuration
 {
     public class ColumnDefinition
     {
@@ -9,7 +11,5 @@
         public string PropertyName { get; set; }
 
         public string Mask { get; set; }
-
-        public bool Nullable { get; set; } = false;
     }
 }

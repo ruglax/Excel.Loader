@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_FormaPago
+    public partial class c_FormaPago
     {
         [JsonExtensionData]
         private readonly IDictionary<string, JToken> _additionalData;

@@ -3,7 +3,7 @@
   "catalogDefinition": [
     {
       "sheetName": "c_Aduana",
-      "active": false,
+      "active": true,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -27,7 +27,7 @@
     },
     {
       "sheetName": "c_ClaveUnidad",
-      "active": false,
+      "active": true,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -55,7 +55,7 @@
     },
     {
       "sheetName": "c_ClaveProdServ",
-      "active": false,
+      "active": true,
       "version": "2.0",
       "revision": "2",
       "columns": [
@@ -99,9 +99,10 @@
     {
       "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
       "entityName": "c_CodigoPostal",
-      "active": false,
+      "active": true,
       "version": "4.0",
       "revision": "1",
+      "excludedValues": ["00000"], 
       "columns": [
         {
           "Index": 0,
@@ -142,7 +143,7 @@
     },
     {
       "sheetName": "c_FormaPago",
-      "active": false,
+      "active": true,
       "version": "1.0",
       "revision": "0",
       "columns": [
@@ -216,7 +217,7 @@
     },
     {
       "sheetName": "c_Impuesto",
-      "active": false,
+      "active": true,
       "version": "1.0",
       "revision": "0",
       "columns": [
@@ -255,7 +256,7 @@
     },
     {
       "sheetName": "c_MetodoPago",
-      "active": false,
+      "active": true,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -278,7 +279,7 @@
     },
     {
       "sheetName": "c_Moneda",
-      "active": false,
+      "active": true,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -312,7 +313,7 @@
     },
     {
       "sheetName": "c_NumPedimentoAduana",
-      "active": false,
+      "active": true,
       "version": "37.0",
       "revision": "0",
       "columns": [
@@ -345,7 +346,7 @@
     },
     {
       "sheetName": "c_Pais",
-      "active": false,
+      "active": true,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -383,7 +384,7 @@
     },
     {
       "sheetName": "c_PatenteAduanal",
-      "active": false,
+      "active": true,
       "version": "29.0",
       "revision": "0",
       "columns": [
@@ -402,7 +403,7 @@
     },
     {
       "sheetName": "c_RegimenFiscal",
-      "active": false,
+      "active": true,
       "version": "1.0",
       "revision": "A",
       "columns": [
@@ -435,7 +436,7 @@
     },
     {
       "sheetName": "c_TasaOCuota",
-      "active": false,
+      "active": true,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -508,11 +509,81 @@
           "Index": 2,
           "Name": "Valor máximo",
           "PropertyName": "ValorMaximo",
-          "Mask": "0:0.000000" 
+          "Mask": "0:0.000000"
         },
         {
           "Index": 4,
           "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_TipoFactor",
+      "active": true,
+      "version": "1.0",
+      "revision": "3",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_TipoFactor",
+          "PropertyName": "Clave"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_TipoRelacion",
+      "active": true,
+      "version": "2.0",
+      "revision": "0",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_TipoRelacion",
+          "PropertyName": "Clave",
+          "Mask": "0:00"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Fecha inicio de vigencia",
+          "PropertyName": "FechaInicio"
+        }
+      ]
+    },
+    {
+      "sheetName": "c_UsoCFDI",
+      "active": true,
+      "version": "2.0",
+      "revision": "1",
+      "columns": [
+        {
+          "Index": 0,
+          "Name": "c_UsoCFDI",
+          "PropertyName": "Clave"
+        },
+        {
+          "Index": 1,
+          "Name": "Descripción",
+          "PropertyName": "Nombre"
+        },
+        {
+          "Index": 2,
+          "Name": "Física",
+          "PropertyName": "FisicaRaw"
+        },
+        {
+          "Index": 3,
+          "Name": "Moral",
+          "PropertyName": "MoralRaw"
+        },
+        {
+          "Index": 4,
+          "Name": "Fecha de inicio de vigencia",
           "PropertyName": "FechaInicio"
         }
       ]

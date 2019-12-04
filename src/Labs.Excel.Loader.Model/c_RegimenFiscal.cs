@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_RegimenFiscal
+    public partial class c_RegimenFiscal
     {
         [JsonExtensionData]
         private readonly IDictionary<string, JToken> _additionalData;

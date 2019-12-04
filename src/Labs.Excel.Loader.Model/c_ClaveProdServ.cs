@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_ClaveProdServ
+    public partial class c_ClaveProdServ
     {
         [JsonExtensionData]
         private readonly IDictionary<string, JToken> _additionalData;

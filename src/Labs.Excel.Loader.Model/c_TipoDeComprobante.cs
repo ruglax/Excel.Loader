@@ -2,15 +2,11 @@
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_TipoDeComprobante
+    public partial class c_TipoFactor
     {
         public string Clave { get; set; }
 
-        public string Nombre { get; set; }
-
-        public string ValorMaximo { get; set; }
-
-        public DateTime FechaInicio { get; set; }
+        public DateTime FechaInicio { get; set; } = new DateTime(2017, 1, 1);
 
         public DateTime? FechaFin { get; set; }
     }

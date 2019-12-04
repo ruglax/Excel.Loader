@@ -2,7 +2,7 @@
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_Aduana
+    public partial class c_Aduana
     {
         public string Clave { get; set; }
 

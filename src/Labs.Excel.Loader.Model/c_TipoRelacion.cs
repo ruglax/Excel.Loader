@@ -2,7 +2,7 @@
 
 namespace Labs.Excel.Loader.Model
 {
-    public partial class c_ClaveUnidad
+    public partial class c_TipoRelacion
     {
         public string Clave { get; set; }
 

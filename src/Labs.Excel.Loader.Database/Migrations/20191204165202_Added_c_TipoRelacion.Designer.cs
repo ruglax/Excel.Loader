@@ -4,14 +4,16 @@ using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Labs.Excel.Loader.Database.Migrations
 {
     [DbContext(typeof(DbCatalogosContext))]
-    partial class DbCatalogosContextModelSnapshot : ModelSnapshot
+    [Migration("20191204165202_Added_c_TipoRelacion")]
+    partial class Added_c_TipoRelacion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,26 +351,6 @@ namespace Labs.Excel.Loader.Database.Migrations
                     b.HasKey("Clave");
 
                     b.ToTable("c_TipoRelacion");
-                });
-
-            modelBuilder.Entity("Labs.Excel.Loader.Model.c_UsoCFDI", b =>
-                {
-                    b.Property<string>("Clave")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime?>("FechaFin");
-
-                    b.Property<DateTime>("FechaInicio");
-
-                    b.Property<int>("Fisica");
-
-                    b.Property<int>("Moral");
-
-                    b.Property<string>("Nombre");
-
-                    b.HasKey("Clave");
-
-                    b.ToTable("c_UsoCFDI");
                 });
 #pragma warning restore 612, 618
         }

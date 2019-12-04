@@ -57,14 +57,14 @@ namespace Labs.Excel.Loader
                     if (row == null)
                         continue;
 
-                    var temp = row.GetCell(0)?.ToString();
-                    if (!_startProcess && temp?.ToUpper() == clave?.Name?.ToUpper())
+                    var tempCellValue = row.GetCell(0)?.ToString();
+                    if (!_startProcess && tempCellValue?.ToUpper() == clave?.Name?.ToUpper())
                     {
                         _startProcess = true;
                         continue;
                     }
 
-                    if (_startProcess)
+                    if (_startProcess && catalogDefinition.ExcludedValues.All(p => p != tempCellValue))
                     {
                         var jtoken = WriteJson(row, catalogDefinition);
                         if (jtoken != null)
@@ -104,18 +104,18 @@ namespace Labs.Excel.Loader
             foreach (var rowDefinition in catalogDefinition.Columns)
             {
                 cell = row.GetCell(rowDefinition.Index);
-                var value = GetValue(cell);
-                if (value == null && rowDefinition.Index == 0)
+                var cellValue = GetValue(cell);
+                if (cellValue == null && rowDefinition.Index == 0)
                     break;
 
                 writer.WritePropertyName(rowDefinition.PropertyName);
                 if (string.IsNullOrWhiteSpace(rowDefinition.Mask))
                 {
-                    writer.WriteValue(GetValue(cell) ?? string.Empty);
+                    writer.WriteValue(cellValue ?? string.Empty);
                 }
                 else
                 {
-                    writer.WriteValue(string.Format($"{{{rowDefinition.Mask}}}", GetValue(cell)));
+                    writer.WriteValue(string.Format($"{{{rowDefinition.Mask}}}", cellValue));
                 }
 
             }

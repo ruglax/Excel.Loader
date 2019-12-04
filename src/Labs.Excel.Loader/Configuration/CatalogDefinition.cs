@@ -14,6 +14,8 @@ namespace Labs.Excel.Loader.Configuration
 
         public string Revision { get; set; }
 
-        public List<ColumnDefinition> Columns { get; set; }
+        public List<ColumnDefinition> Columns { get; set; } = new List<ColumnDefinition>();
+
+        public List<string> ExcludedValues { get; set; } = new List<string>();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Labs.Excel.Loader.Model
 {
-    public class c_Pais
+    public partial class c_Pais
     {
         public string Clave { get; set; }
 

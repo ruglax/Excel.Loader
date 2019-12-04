@@ -41,6 +41,9 @@ namespace Labs.Excel.Loader.Console
             ConfigureRepository<c_RegimenFiscal>(serviceProvider, loader);
             ConfigureRepository<c_TasaOCuota>(serviceProvider, loader);
             ConfigureRepository<c_TipoDeComprobante>(serviceProvider, loader);
+            ConfigureRepository<c_TipoFactor>(serviceProvider, loader);
+            ConfigureRepository<c_TipoRelacion>(serviceProvider, loader);
+            ConfigureRepository<c_UsoCFDI>(serviceProvider, loader);
 
             loader.UploadFile();
 
@@ -81,6 +84,9 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<IRepository<c_RegimenFiscal>, Repository<c_RegimenFiscal>>();
             serviceCollection.AddTransient<IRepository<c_TasaOCuota>, Repository<c_TasaOCuota>>();
             serviceCollection.AddTransient<IRepository<c_TipoDeComprobante>, Repository<c_TipoDeComprobante>>();
+            serviceCollection.AddTransient<IRepository<c_TipoFactor>, Repository<c_TipoFactor>>();
+            serviceCollection.AddTransient<IRepository<c_TipoRelacion>, Repository<c_TipoRelacion>>();
+            serviceCollection.AddTransient<IRepository<c_UsoCFDI>, Repository<c_UsoCFDI>>();
 
             serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();
