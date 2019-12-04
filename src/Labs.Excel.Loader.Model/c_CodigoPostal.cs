@@ -4,7 +4,7 @@ namespace Labs.Excel.Loader.Model
 {
     public partial class c_CodigoPostal
     {
-        public string Clave { get; set; }
+        public string Id { get; set; }
 
         public string Estado { get; set; }
 

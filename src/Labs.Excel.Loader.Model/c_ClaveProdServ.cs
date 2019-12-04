@@ -17,9 +17,9 @@ namespace Labs.Excel.Loader.Model
             _additionalData = new Dictionary<string, JToken>();
         }
 
-        public string Clave { get; set; }
+        public string Id { get; set; }
 
-        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
 
         [JsonIgnore]
         public CatalogValidationOptions IncluirIVA { get; set; }

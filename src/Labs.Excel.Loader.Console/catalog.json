@@ -10,13 +10,13 @@
         {
           "Index": 0,
           "Name": "c_Aduana",
-          "PropertyName": "Clave",
+          "PropertyName": "Id",
           "Mask": "0:00"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -27,7 +27,7 @@
     },
     {
       "sheetName": "c_ClaveUnidad",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -55,7 +55,7 @@
     },
     {
       "sheetName": "c_ClaveProdServ",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "2",
       "columns": [
@@ -99,7 +99,7 @@
     {
       "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
       "entityName": "c_CodigoPostal",
-      "active": true,
+      "active": false,
       "version": "4.0",
       "revision": "1",
       "excludedValues": ["00000"], 
@@ -143,7 +143,7 @@
     },
     {
       "sheetName": "c_FormaPago",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "0",
       "columns": [
@@ -217,7 +217,7 @@
     },
     {
       "sheetName": "c_Impuesto",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "0",
       "columns": [
@@ -256,7 +256,7 @@
     },
     {
       "sheetName": "c_MetodoPago",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -279,7 +279,7 @@
     },
     {
       "sheetName": "c_Moneda",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -313,7 +313,7 @@
     },
     {
       "sheetName": "c_NumPedimentoAduana",
-      "active": true,
+      "active": false,
       "version": "37.0",
       "revision": "0",
       "columns": [
@@ -346,7 +346,7 @@
     },
     {
       "sheetName": "c_Pais",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -384,7 +384,7 @@
     },
     {
       "sheetName": "c_PatenteAduanal",
-      "active": true,
+      "active": false,
       "version": "29.0",
       "revision": "0",
       "columns": [
@@ -403,7 +403,7 @@
     },
     {
       "sheetName": "c_RegimenFiscal",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "A",
       "columns": [
@@ -436,7 +436,7 @@
     },
     {
       "sheetName": "c_TasaOCuota",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -491,7 +491,7 @@
     },
     {
       "sheetName": "c_TipoDeComprobante",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "3",
       "columns": [
@@ -520,7 +520,7 @@
     },
     {
       "sheetName": "c_TipoFactor",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "3",
       "columns": [
@@ -533,7 +533,7 @@
     },
     {
       "sheetName": "c_TipoRelacion",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "0",
       "columns": [
@@ -557,7 +557,7 @@
     },
     {
       "sheetName": "c_UsoCFDI",
-      "active": true,
+      "active": false,
       "version": "2.0",
       "revision": "1",
       "columns": [
