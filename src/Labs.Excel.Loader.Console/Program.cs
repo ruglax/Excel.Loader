@@ -70,6 +70,7 @@ namespace Labs.Excel.Loader.Console
 
             serviceCollection.AddTransient<IWorbookReader>(ctx => new WorbookReader(catalogConfiguration));
 
+            serviceCollection.AddTransient<IIndexHelper, IndexHelper>();
             serviceCollection.AddTransient<IRepository<c_Aduana>, Repository<c_Aduana>>();
             serviceCollection.AddTransient<IRepository<c_ClaveProdServ>, Repository<c_ClaveProdServ>>();
             serviceCollection.AddTransient<IRepository<c_ClaveUnidad>, Repository<c_ClaveUnidad>>();
@@ -96,7 +97,7 @@ namespace Labs.Excel.Loader.Console
         private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
             where T : class, new()
         {
-            const int batchSize = 1000;
+            const int batchSize = 10000;
             var consumer = serviceProvider.GetService<IConsumer>();
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
             var repository = serviceProvider.GetService<IRepository<T>>();

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Labs.Excel.Loader.Model;
 using Microsoft.Extensions.Logging;
 
@@ -12,102 +13,100 @@ namespace Labs.Excel.Loader.Database
     public class Repository<T> : IRepository<T>, IRepositoryAsync<T>
         where T : class, new()
     {
+        public IIndexHelper IndexHelper { get; }
         private readonly ILogger<Repository<T>> _logger;
 
         private static readonly ConcurrentDictionary<string, PropertyInfo[]> PropertyInfoCache =
             new ConcurrentDictionary<string, PropertyInfo[]>();
 
-        private const string IndexQuery =
-            "SELECT ClusteredIndexName = i.name, ColumnName = c.Name " +
-            "FROM sys.tables t " +
-            "INNER JOIN  sys.indexes i ON t.object_id = i.object_id " +
-            "INNER JOIN  sys.index_columns ic ON i.index_id = ic.index_id AND i.object_id = ic.object_id " +
-            "INNER JOIN  sys.columns c ON ic.column_id = c.column_id AND ic.object_id = c.object_id " +
-            "WHERE i.index_id = 1 AND t.name = @table";
-
-        private const string DropIndex = "DROP INDEX PK_Table1_Col1";
-
         private readonly ConnectionStringHelper _connectionStringHelper;
 
-        private readonly string _key;
+        private readonly IIndexHelper _indexHelper;
 
-        public Repository(ConnectionStringHelper connectionStringHelperHelper, ILogger<Repository<T>> logger)
+        private readonly string _table;
+
+        public Repository(ILogger<Repository<T>> logger, ConnectionStringHelper connectionStringHelperHelper, IIndexHelper indexHelper)
         {
+            _indexHelper = indexHelper;
             _connectionStringHelper = connectionStringHelperHelper;
             _logger = logger;
-            _key = typeof(T).Name;
+            _table = typeof(T).Name;
             Init();
         }
 
+        /// <summary>
+        /// Realiza una inserción con bulk copy asíncrono de las entidades proporcionadas.
+        /// </summary>
+        /// <param name="entities"></param>
         public void BulkInsertAsync(T[] entities)
         {
             Bulk(entities, async (table, percent) =>
             {
-                using (SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString()))
+                using (var copy = CreateBulkObject(percent, table))
                 {
-                    copy.BulkCopyTimeout = 300;
-                    copy.DestinationTableName = _key;
-                    copy.NotifyAfter = percent;
-                    copy.SqlRowsCopied += (sender, args) => _logger.LogInformation($"Processing  {args.RowsCopied} records of type {_key}");
                     await copy.WriteToServerAsync(table);
                 }
             });
         }
 
+        /// <summary>
+        /// Realiza una inserción con bulk copy de las entidades proporcionadas.
+        /// </summary>
+        /// <param name="entities"></param>
         public void BulkInsert(T[] entities)
         {
             Bulk(entities, (table, percent) =>
             {
-                using (SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString()))
+                using (var copy = CreateBulkObject(percent, table))
                 {
-                    copy.BulkCopyTimeout = 300;
-                    copy.DestinationTableName = _key;
-                    copy.NotifyAfter = percent;
-                    copy.SqlRowsCopied += (sender, args) => _logger.LogInformation($"Processing  {args.RowsCopied} records of type {_key}");
                     copy.WriteToServer(table);
                 }
             });
         }
 
-        public void Bulk(T[] entities, Action<DataTable, int> action)
+        private void Bulk(T[] entities, Action<DataTable, int> action)
         {
             try
             {
-                
                 if (!entities.Any())
                 {
-                    _logger.LogInformation($"No entities of type {_key} to save");
+                    _logger.LogInformation($"No entities of type {_table} to save");
                     return;
                 }
 
                 var percent = entities.Length / 10;
-                var index = GetClusteredIndex();
+                var index = _indexHelper.GetClusteredIndex(_table);
                 if (index != null)
                 {
-
+                    _indexHelper?.DeleteIndex(_table, index.ClusteredIndexName, index.ColumnName);
                 }
 
-                _logger.LogInformation($"Saving records {entities.Length} of type {_key}");
-                if (PropertyInfoCache.TryGetValue(_key, out var properties))
+                _logger.LogInformation($"Saving records {entities.Length} of type {_table}");
+                if (PropertyInfoCache.TryGetValue(_table, out var properties))
                 {
                     DataTable table = CreateDataTable(properties);
                     FillDataTable(table, properties, entities);
                     action.Invoke(table, percent);
-                    _logger.LogInformation($"Saved  {entities.Length} records of type {_key}");
+                    if (index != null)
+                    {
+                        _indexHelper.CreateIndex(_table, index.ClusteredIndexName, index.ColumnName);
+                    }
+
+                    _logger.LogInformation($"Saved  {entities.Length} records of type {_table}");
                 }
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Error saving records {entities.Length} of type {_key}");
+                _logger.LogError(e, $"Error saving records {entities.Length} of type {_table}");
             }
         }
 
         private void Init()
         {
-            if (!PropertyInfoCache.TryGetValue(_key, out var properties))
+            if (!PropertyInfoCache.TryGetValue(_table, out _))
             {
-                properties = typeof(T).GetProperties();
-                PropertyInfoCache.TryAdd(_key, properties);
+                PropertyInfo[] properties = typeof(T).GetProperties();
+                PropertyInfoCache.TryAdd(_table, properties);
             }
         }
 
@@ -140,40 +139,17 @@ namespace Labs.Excel.Loader.Database
             }
         }
 
-        private dynamic GetClusteredIndex()
+        private SqlBulkCopy CreateBulkObject(int percent, DataTable table)
         {
-            using (SqlConnection connection =
-                new SqlConnection(_connectionStringHelper.GetConnectionString()))
+            SqlBulkCopy copy = new SqlBulkCopy(_connectionStringHelper.GetConnectionString())
             {
-                // Create the Command and Parameter objects.
-                SqlCommand command = new SqlCommand(IndexQuery, connection);
-                command.Parameters.AddWithValue("@table", _key);
+                BulkCopyTimeout = 300,
+                DestinationTableName = _table,
+                NotifyAfter = percent
+            };
 
-                // Open the connection in a try/catch block. 
-                // Create and execute the DataReader, writing the result
-                // set to the console window.
-                try
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        return new
-                        {
-                            ClusteredIndexName = reader[0],
-                            ColumnName = reader[1]
-                        };
-                    }
-                    reader.Close();
-                    
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "No fue posible encontrar el indice clusterizado", _key);
-                }
-
-                return null;
-            }
+            copy.SqlRowsCopied += (sender, args) => _logger.LogInformation($"Processing  {args.RowsCopied} records of type {_table}");
+            return copy;
         }
     }
 }

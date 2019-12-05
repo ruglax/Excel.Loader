@@ -35,7 +35,7 @@ namespace Labs.Excel.Loader
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Error deserializing object type: {typeof(T).Name}", message);
+                _logger.LogError(e, $"Error deserializing object type: {typeof(T).Name}, {{message}}", message);
             }
 
             return null;

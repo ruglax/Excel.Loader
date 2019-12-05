@@ -18,6 +18,8 @@ namespace Labs.Excel.Loader
 
         private readonly ITargetBlock<Message> _targetBlock;
 
+        private readonly CatalogJsonConverter _catalogJsonConverter;
+
         private bool _startProcess;
 
         public SheetReader(ILogger<SheetReader> logger, IWorkbook workbook, ITargetBlock<Message> targetBlock)
@@ -25,17 +27,14 @@ namespace Labs.Excel.Loader
             _logger = logger;
             _workbook = workbook;
             _targetBlock = targetBlock;
+            _catalogJsonConverter = new CatalogJsonConverter();
         }
 
         public void ReadSheet(CatalogDefinition catalogDefinition)
         {
             _logger.LogInformation($"Reading configuration {catalogDefinition.SheetName}", catalogDefinition);
-            var sheets = catalogDefinition.SheetName.Split(',');
-            foreach (var sheet in sheets)
-            {
-
-                ReadSheet(catalogDefinition, sheet.Trim());
-            }
+            string[] sheets = catalogDefinition.SheetName.Split(',');
+            sheets.ToList().ForEach(sheet => ReadSheet(catalogDefinition, sheet.Trim()));
         }
 
         private void ReadSheet(CatalogDefinition catalogDefinition, string sheetName)
@@ -64,9 +63,9 @@ namespace Labs.Excel.Loader
                         continue;
                     }
 
-                    if (_startProcess && catalogDefinition.ExcludedValues.All(p => p != tempCellValue))
+                    if (_startProcess && catalogDefinition.ExcludedValues.All(p => p as string != tempCellValue))
                     {
-                        var jtoken = WriteJson(row, catalogDefinition);
+                        var jtoken = _catalogJsonConverter.WriteJson(row, catalogDefinition);
                         if (jtoken != null)
                         {
                             var message = new Message
@@ -89,74 +88,6 @@ namespace Labs.Excel.Loader
             }
 
             _logger.LogInformation($"Founded records {sheet.SheetName}: {records}");
-        }
-
-        //TODO: Mover a clase
-        private JToken WriteJson(IRow row, CatalogDefinition catalogDefinition)
-        {
-            ICell cell = row.GetCell(0);
-            var tempCellValue = GetValue(cell)?.ToString();
-            if (string.IsNullOrEmpty(tempCellValue))
-                return null;
-
-            JTokenWriter writer = new JTokenWriter();
-            writer.WriteStartObject();
-            foreach (var rowDefinition in catalogDefinition.Columns)
-            {
-                cell = row.GetCell(rowDefinition.Index);
-                var cellValue = GetValue(cell);
-                if (cellValue == null && rowDefinition.Index == 0)
-                    break;
-
-                writer.WritePropertyName(rowDefinition.PropertyName);
-                if (string.IsNullOrWhiteSpace(rowDefinition.Mask))
-                {
-                    writer.WriteValue(cellValue ?? string.Empty);
-                }
-                else
-                {
-                    writer.WriteValue(string.Format($"{{{rowDefinition.Mask}}}", cellValue));
-                }
-
-            }
-
-            writer.WriteEndObject();
-            return writer.Token;
-        }
-
-        // TODO: Mover a clase
-        private object GetValue(ICell cell)
-        {
-            switch (cell.CellType)
-            {
-                case CellType.String:
-                    return cell.ToString();
-                case CellType.Numeric:
-                    try
-                    {
-                        string temp = cell.ToString();
-                        if (DateTime.TryParseExact(temp, "dd/MM/yyyy", null, DateTimeStyles.None,
-                            out DateTime dateTemp))
-                        {
-                            return dateTemp;
-                        }
-
-                        if (DateTime.TryParse(temp, out dateTemp))
-                        {
-                            return dateTemp;
-                        }
-
-                        return cell.NumericCellValue;
-                    }
-                    catch (Exception)
-                    {
-                        return cell.NumericCellValue;
-                    }
-                case CellType.Formula:
-                    return cell.StringCellValue;
-                default:
-                    return cell.ToString();
-            }
         }
     }
 }

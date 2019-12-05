@@ -50,8 +50,10 @@ namespace Labs.Excel.Loader
             var actionBlock = new ActionBlock<T[]>(m =>
             {
                 var temp = m.Where(x => x != null).ToArray();
-                _logger.LogDebug($"Bulk insert {temp.GetType().Name} - {temp.Length}");
+                var entity = temp.GetType().Name;
+                _logger.LogDebug($"Bulk insert {entity} - {temp.Length}");
                 execution.Invoke(temp);
+                _logger.LogInformation($"Process finished for {entity}");
             });
 
             batchBlock.LinkTo(actionBlock, linkOptions);
