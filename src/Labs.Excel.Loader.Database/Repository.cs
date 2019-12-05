@@ -17,6 +17,16 @@ namespace Labs.Excel.Loader.Database
         private static readonly ConcurrentDictionary<string, PropertyInfo[]> PropertyInfoCache =
             new ConcurrentDictionary<string, PropertyInfo[]>();
 
+        private const string IndexQuery =
+            "SELECT ClusteredIndexName = i.name, ColumnName = c.Name " +
+            "FROM sys.tables t " +
+            "INNER JOIN  sys.indexes i ON t.object_id = i.object_id " +
+            "INNER JOIN  sys.index_columns ic ON i.index_id = ic.index_id AND i.object_id = ic.object_id " +
+            "INNER JOIN  sys.columns c ON ic.column_id = c.column_id AND ic.object_id = c.object_id " +
+            "WHERE i.index_id = 1 AND t.name = @table";
+
+        private const string DropIndex = "DROP INDEX PK_Table1_Col1";
+
         private readonly ConnectionStringHelper _connectionStringHelper;
 
         private readonly string _key;
@@ -63,6 +73,7 @@ namespace Labs.Excel.Loader.Database
         {
             try
             {
+                
                 if (!entities.Any())
                 {
                     _logger.LogInformation($"No entities of type {_key} to save");
@@ -70,6 +81,12 @@ namespace Labs.Excel.Loader.Database
                 }
 
                 var percent = entities.Length / 10;
+                var index = GetClusteredIndex();
+                if (index != null)
+                {
+
+                }
+
                 _logger.LogInformation($"Saving records {entities.Length} of type {_key}");
                 if (PropertyInfoCache.TryGetValue(_key, out var properties))
                 {
@@ -123,6 +140,40 @@ namespace Labs.Excel.Loader.Database
             }
         }
 
+        private dynamic GetClusteredIndex()
+        {
+            using (SqlConnection connection =
+                new SqlConnection(_connectionStringHelper.GetConnectionString()))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(IndexQuery, connection);
+                command.Parameters.AddWithValue("@table", _key);
 
+                // Open the connection in a try/catch block. 
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        return new
+                        {
+                            ClusteredIndexName = reader[0],
+                            ColumnName = reader[1]
+                        };
+                    }
+                    reader.Close();
+                    
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "No fue posible encontrar el indice clusterizado", _key);
+                }
+
+                return null;
+            }
+        }
     }
 }

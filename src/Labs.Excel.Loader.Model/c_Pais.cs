@@ -4,9 +4,9 @@ namespace Labs.Excel.Loader.Model
 {
     public partial class c_Pais
     {
-        public string Clave { get; set; }
+        public string Id { get; set; }
 
-        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
 
         public string FormatoCodigoPostal { get; set; }
 

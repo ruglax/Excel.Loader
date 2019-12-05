@@ -1,9 +1,9 @@
 {
-  "filepath": "C:\\Users\\Raul Silva\\Downloads\\catCFDI.xlsx",
+  "filepath": "D:\\User\\Downloads\\catCFDI.xlsx",
   "catalogDefinition": [
     {
       "sheetName": "c_Aduana",
-      "active": true,
+      "active": false,
       "version": "1.0",
       "revision": "1",
       "columns": [
@@ -34,12 +34,12 @@
         {
           "Index": 0,
           "Name": "c_ClaveUnidad",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Nombre",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 4,
@@ -62,12 +62,12 @@
         {
           "Index": 0,
           "Name": "c_ClaveProdServ",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -99,15 +99,15 @@
     {
       "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
       "entityName": "c_CodigoPostal",
-      "active": false,
+      "active": true,
       "version": "4.0",
       "revision": "1",
-      "excludedValues": ["00000"], 
+      "excludedValues": [ "00000", "" ],
       "columns": [
         {
           "Index": 0,
           "Name": "c_CodigoPostal",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
@@ -150,13 +150,13 @@
         {
           "Index": 0,
           "Name": "c_FormaPago",
-          "PropertyName": "Clave",
+          "PropertyName": "Id",
           "Mask": "0:00"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -224,13 +224,13 @@
         {
           "Index": 0,
           "Name": "c_Impuesto",
-          "PropertyName": "Clave",
+          "PropertyName": "Id",
           "Mask": "0:000"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -263,12 +263,12 @@
         {
           "Index": 0,
           "Name": "c_MetodoPago",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -286,12 +286,12 @@
         {
           "Index": 0,
           "Name": "c_Moneda",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -353,12 +353,12 @@
         {
           "Index": 0,
           "Name": "c_Pais",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -391,7 +391,7 @@
         {
           "Index": 0,
           "Name": "C_PatenteAduanal",
-          "PropertyName": "Clave",
+          "PropertyName": "Id",
           "Mask": "0:0000"
         },
         {
@@ -410,12 +410,12 @@
         {
           "Index": 0,
           "Name": "c_RegimenFiscal",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -498,12 +498,12 @@
         {
           "Index": 0,
           "Name": "c_TipoDeComprobante",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -527,7 +527,7 @@
         {
           "Index": 0,
           "Name": "c_TipoFactor",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         }
       ]
     },
@@ -540,13 +540,13 @@
         {
           "Index": 0,
           "Name": "c_TipoRelacion",
-          "PropertyName": "Clave",
+          "PropertyName": "Id",
           "Mask": "0:00"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,
@@ -564,12 +564,12 @@
         {
           "Index": 0,
           "Name": "c_UsoCFDI",
-          "PropertyName": "Clave"
+          "PropertyName": "Id"
         },
         {
           "Index": 1,
           "Name": "Descripción",
-          "PropertyName": "Nombre"
+          "PropertyName": "Descripcion"
         },
         {
           "Index": 2,

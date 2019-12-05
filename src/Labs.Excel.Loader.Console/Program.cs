@@ -96,7 +96,7 @@ namespace Labs.Excel.Loader.Console
         private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
             where T : class, new()
         {
-            const int batchSize = 50000;
+            const int batchSize = 1000;
             var consumer = serviceProvider.GetService<IConsumer>();
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
             var repository = serviceProvider.GetService<IRepository<T>>();
