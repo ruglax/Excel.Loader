@@ -234,7 +234,8 @@ namespace Labs.Excel.Loader.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Aduana");
+                    b.Property<string>("Aduana")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Cantidad")
                         .HasMaxLength(6);

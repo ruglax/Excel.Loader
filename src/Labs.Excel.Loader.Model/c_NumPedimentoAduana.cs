@@ -6,6 +6,8 @@ namespace Labs.Excel.Loader.Model
 {
     public partial class c_NumPedimentoAduana
     {
+        public int Id { get; set; }
+
         public string Aduana { get; set; }
 
         public string Patente { get; set; }
@@ -17,7 +19,5 @@ namespace Labs.Excel.Loader.Model
         public DateTime FechaInicio { get; set; }
 
         public DateTime? FechaFin { get; set; }
-
-        public int Id { get; set; }
     }
 }
