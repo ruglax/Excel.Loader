@@ -20,10 +20,12 @@ namespace Labs.Excel.Loader.Database
             "INNER JOIN  sys.columns c ON ic.column_id = c.column_id AND ic.object_id = c.object_id " +
             "WHERE i.index_id = 1 AND t.name = @table";
 
-        private const string DropIndexQuery = "DROP INDEX {0} ON {1}";
+        private const string DropIndexQuery = "DROP INDEX {0} ON {1}";// indexName + tableName
 
-        private const string CreateIndexQuey = "CREATE CLUSTERED INDEX {0} ON {1} ({2})";
+        //private const string CreateIndexQuey = "CREATE CLUSTERED INDEX {0} ON {1} ({2})"; // indexName + tableName + columnName
+        private const string CreateIndexQuey = "ALTER TABLE {0} ADD CONSTRAINT {1} PRIMARY KEY CLUSTERED({2})";//  tableName  + indexName+ columnName
 
+        private const string DropConstraintQuery = "ALTER TABLE {0} DROP CONSTRAINT {1}"; // table + indexName
         public IndexHelper(ILogger<IndexHelper> logger, ConnectionStringHelper connectionStringHelperHelper)
         {
             _logger = logger;
@@ -88,7 +90,7 @@ namespace Labs.Excel.Loader.Database
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                SqlCommand command = new SqlCommand(string.Format(CreateIndexQuey, index, table, column), connection);
+                SqlCommand command = new SqlCommand(string.Format(CreateIndexQuey, table, index, column), connection);
 
                 try
                 {
@@ -98,6 +100,24 @@ namespace Labs.Excel.Loader.Database
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "No fue posible crear el índice clusterizado", table);
+                }
+            }
+        }
+
+        public void DropConstraint(string table, string index)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(string.Format(DropConstraintQuery, table, index), connection);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "No fue posible eliminar el constraint del PK", table);
                 }
             }
         }

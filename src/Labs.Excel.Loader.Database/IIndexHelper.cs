@@ -5,5 +5,7 @@
         dynamic GetClusteredIndex(string table);
         void DeleteIndex(string table, string index, string column);
         void CreateIndex(string table, string index, string column);
+
+        void DropConstraint(string table, string index);
     }
 }

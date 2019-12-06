@@ -78,7 +78,8 @@ namespace Labs.Excel.Loader.Database
                 var index = _indexHelper.GetClusteredIndex(_table);
                 if (index != null)
                 {
-                    _indexHelper?.DeleteIndex(_table, index.ClusteredIndexName, index.ColumnName);
+                    _indexHelper?.DropConstraint(_table, index.ClusteredIndexName);
+                    //_indexHelper?.DeleteIndex(_table, index.ClusteredIndexName, index.ColumnName);
                 }
 
                 _logger.LogInformation($"Saving records {entities.Length} of type {_table}");

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
 using Labs.Excel.Loader.Model;
@@ -14,15 +16,17 @@ namespace Labs.Excel.Loader
 
         private readonly ISheetReaderFactory _sheetReaderFactory;
 
+        private readonly IDictionary<string, BufferBlock<Message>> _bufferBlocks = new Dictionary<string, BufferBlock<Message>>();
+
         public Loader(ILogger<Loader> logger, IWorbookReader worbookReader, ISheetReaderFactory sheetReaderFactory, BufferBlock<Message> bufferBlock)
         {
             _logger = logger;
             _worbookReader = worbookReader;
             _sheetReaderFactory = sheetReaderFactory;
-            BufferBlock = bufferBlock;
+            //BufferBlock = bufferBlock;
         }
 
-        public BufferBlock<Message> BufferBlock { get; }
+        //public BufferBlock<Message> BufferBlock { get; }
 
         public void UploadFile()
         {
@@ -33,12 +37,13 @@ namespace Labs.Excel.Loader
             {
                 if (definition != null)
                 {
-                    var sheetReader = _sheetReaderFactory.CreateInstance(worbook, BufferBlock);
+                    var bufferName = definition.EntityName ?? definition.SheetName;
+                    var sheetReader = _sheetReaderFactory.CreateInstance(worbook, _bufferBlocks[bufferName]);
                     sheetReader.ReadSheet(definition);
+                    _bufferBlocks[bufferName].Complete();
                 }
             }
 
-            BufferBlock.Complete();
             _logger.LogInformation("Reader process completed");
         }
 
@@ -62,7 +67,9 @@ namespace Labs.Excel.Loader
             transformBlock.LinkTo(batchBlock, linkOptions);
             transformBlock.Completion.ContinueWith(delegate { batchBlock.Complete(); });
 
-            BufferBlock.LinkTo(transformBlock, linkOptions, m => m != null && m.Type == typeof(T).Name);
+            var bufferBlock = new BufferBlock<Message>();
+            bufferBlock.LinkTo(transformBlock, linkOptions, m => m != null && m.Type == typeof(T).Name);
+            _bufferBlocks.Add(typeof(T).Name, bufferBlock);
         }
     }
 }
