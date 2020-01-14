@@ -4,14 +4,16 @@ using Labs.Excel.Loader.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Labs.Excel.Loader.Database.Migrations
 {
     [DbContext(typeof(DbCatalogosContext))]
-    partial class DbCatalogosContextModelSnapshot : ModelSnapshot
+    [Migration("20200112194433_UpdatedColoniaCatalog")]
+    partial class UpdatedColoniaCatalog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,7 +122,6 @@ namespace Labs.Excel.Loader.Database.Migrations
                         .HasMaxLength(4);
 
                     b.Property<string>("CodigoPostal")
-                        .IsRequired()
                         .HasMaxLength(5);
 
                     b.Property<string>("Descripcion")

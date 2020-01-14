@@ -1,38 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
+using Labs.Excel.Loader.Configuration;
 using Labs.Excel.Loader.Model;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Labs.Excel.Loader
 {
     public class Loader : ILoader
     {
+        private readonly IServiceProvider _serviceProvider;
+
         private readonly ILogger<Loader> _logger;
 
-        private readonly IWorbookReader _worbookReader;
+        //private readonly IWorbookReader _worbookReader;
 
         private readonly ISheetReaderFactory _sheetReaderFactory;
 
         private readonly IDictionary<string, BufferBlock<Message>> _bufferBlocks = new Dictionary<string, BufferBlock<Message>>();
 
-        public Loader(ILogger<Loader> logger, IWorbookReader worbookReader, ISheetReaderFactory sheetReaderFactory, BufferBlock<Message> bufferBlock)
+        public Loader(IServiceProvider serviceProvider,
+            ILogger<Loader> logger,
+            //IWorbookReader worbookReader, 
+            ISheetReaderFactory sheetReaderFactory)
         {
+            _serviceProvider = serviceProvider;
             _logger = logger;
-            _worbookReader = worbookReader;
+            //_worbookReader = worbookReader;
             _sheetReaderFactory = sheetReaderFactory;
-            //BufferBlock = bufferBlock;
+            ConfigureRepositories();
         }
 
-        //public BufferBlock<Message> BufferBlock { get; }
-
-        public void UploadFile()
+        public void UploadFile(CatalogFile catalog)
         {
-            _logger.LogInformation($"Starting upload processs {_worbookReader.CatalogConfiguration.FilePath}", _worbookReader);
-            var worbook = _worbookReader.ReadWorkbook();
-            var definitions = _worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
+            var worbookReader = new WorbookReader(catalog);
+            _logger.LogInformation($"Starting upload processs {worbookReader.CatalogConfiguration.FilePath}", worbookReader);
+            var worbook = worbookReader.ReadWorkbook();
+            var definitions = worbookReader.CatalogConfiguration.CatalogDefinition.Where(p => p.Active).ToList();
             foreach (var definition in definitions)
             {
                 if (definition != null)
@@ -47,7 +53,40 @@ namespace Labs.Excel.Loader
             _logger.LogInformation("Reader process completed");
         }
 
-        public void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)
+        private void ConfigureRepositories()
+        {
+            ConfigureRepository<c_Aduana>();
+            ConfigureRepository<c_ClaveProdServ>();
+            ConfigureRepository<c_ClaveUnidad>();
+            ConfigureRepository<c_CodigoPostal>();
+            ConfigureRepository<c_FormaPago>();
+            ConfigureRepository<c_Impuesto>();
+            ConfigureRepository<c_MetodoPago>();
+            ConfigureRepository<c_Moneda>();
+            ConfigureRepository<c_NumPedimentoAduana>();
+            ConfigureRepository<c_Pais>();
+            ConfigureRepository<c_PatenteAduanal>();
+            ConfigureRepository<c_RegimenFiscal>();
+            ConfigureRepository<c_TasaOCuota>();
+            ConfigureRepository<c_TipoDeComprobante>();
+            ConfigureRepository<c_TipoFactor>();
+            ConfigureRepository<c_TipoRelacion>();
+            ConfigureRepository<c_UsoCFDI>();
+
+            ConfigureRepository<c_Colonia>();
+        }
+
+        private void ConfigureRepository<T>()
+            where T : class, new()
+        {
+            const int batchSize = 10000;
+            var consumer = _serviceProvider.GetService<IConsumer>();
+            var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
+            var repository = _serviceProvider.GetService<IRepository<T>>();
+            ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
+        }
+
+        private void ConfigureEntity<T>(Func<Message, T> action, Action<T[]> execution, int batchSize, DataflowLinkOptions linkOptions)
             where T : class
         {
             var transformBlock = new TransformBlock<Message, T>(action);

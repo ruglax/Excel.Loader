@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks.Dataflow;
 using Labs.Excel.Loader.Configuration;
 using Labs.Excel.Loader.Model;
@@ -12,6 +14,8 @@ namespace Labs.Excel.Loader.Console
 {
     class Program
     {
+        private static CatalogSettings _catalogConfiguration = new CatalogSettings();
+
         static void Main(string[] args)
         {
             System.Console.WriteLine("starting...");
@@ -23,37 +27,20 @@ namespace Labs.Excel.Loader.Console
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(configuration, serviceCollection);
-            var serviceProvider = serviceCollection.BuildServiceProvider();
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
 
-            var loader = serviceProvider.GetService<ILoader>();
-            
-            ConfigureRepository<c_Aduana>(serviceProvider, loader);
-            ConfigureRepository<c_ClaveProdServ>(serviceProvider, loader);
-            ConfigureRepository<c_ClaveUnidad>(serviceProvider, loader);
-            ConfigureRepository<c_CodigoPostal>(serviceProvider, loader);
-            ConfigureRepository<c_FormaPago>(serviceProvider, loader);
-            ConfigureRepository<c_Impuesto>(serviceProvider, loader);
-            ConfigureRepository<c_MetodoPago>(serviceProvider, loader);
-            ConfigureRepository<c_Moneda>(serviceProvider, loader);
-            ConfigureRepository<c_NumPedimentoAduana>(serviceProvider, loader);
-            ConfigureRepository<c_Pais>(serviceProvider, loader);
-            ConfigureRepository<c_PatenteAduanal>(serviceProvider, loader);
-            ConfigureRepository<c_RegimenFiscal>(serviceProvider, loader);
-            ConfigureRepository<c_TasaOCuota>(serviceProvider, loader);
-            ConfigureRepository<c_TipoDeComprobante>(serviceProvider, loader);
-            ConfigureRepository<c_TipoFactor>(serviceProvider, loader);
-            ConfigureRepository<c_TipoRelacion>(serviceProvider, loader);
-            ConfigureRepository<c_UsoCFDI>(serviceProvider, loader);
-
-            loader.UploadFile();
+            foreach (var file in _catalogConfiguration.Filesx.Where(p => p.Active))
+            {
+                serviceProvider.GetService<ILoader>().UploadFile(file);
+            }
 
             System.Console.ReadLine();
         }
 
         private static void ConfigureServices(IConfiguration config, IServiceCollection serviceCollection)
         {
-            var catalogConfiguration = new CatalogConfiguration();
-            config.Bind(catalogConfiguration);
+            var settings = new CatalogSettings();
+            config.Bind(settings);
 
             serviceCollection.AddLogging(loggingBuilder =>
             {
@@ -68,7 +55,7 @@ namespace Labs.Excel.Loader.Console
                 BoundedCapacity = DataflowBlockOptions.Unbounded,
             }));
 
-            serviceCollection.AddTransient<IWorbookReader>(ctx => new WorbookReader(catalogConfiguration));
+            //serviceCollection.AddTransient<IWorbookReader>(ctx => new WorbookReader(catalogConfiguration));
 
             serviceCollection.AddTransient<IIndexHelper, IndexHelper>();
             serviceCollection.AddTransient<IRepository<c_Aduana>, Repository<c_Aduana>>();
@@ -92,16 +79,6 @@ namespace Labs.Excel.Loader.Console
             serviceCollection.AddTransient<ISheetReaderFactory, SheetReaderFactory>();
             serviceCollection.AddTransient<IConsumer, Consumer>();
             serviceCollection.AddTransient<ILoader, Loader>();
-        }
-
-        private static void ConfigureRepository<T>(ServiceProvider serviceProvider, ILoader loader) 
-            where T : class, new()
-        {
-            const int batchSize = 10000;
-            var consumer = serviceProvider.GetService<IConsumer>();
-            var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };
-            var repository = serviceProvider.GetService<IRepository<T>>();
-            loader.ConfigureEntity(consumer.Transform<T>, repository.BulkInsert, batchSize, linkOptions);
         }
     }
 }
