@@ -5,7 +5,7 @@ namespace Labs.Excel.Loader
 {
     public interface IWorbookReader
     {
-        CatalogConfiguration CatalogConfiguration { get; }
+        CatalogFile CatalogConfiguration { get; }
 
         IWorkbook ReadWorkbook();
     }

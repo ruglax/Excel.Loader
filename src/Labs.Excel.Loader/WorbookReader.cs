@@ -7,15 +7,14 @@ namespace Labs.Excel.Loader
 {
     public class WorbookReader : IWorbookReader
     {
-        private readonly CatalogConfiguration _configuration;
+        private readonly CatalogFile _configuration;
 
-        public WorbookReader(CatalogConfiguration configuration)
+        public WorbookReader(CatalogFile configuration)
         {
             _configuration = configuration;
         }
 
-
-        public CatalogConfiguration CatalogConfiguration => _configuration;
+        public CatalogFile CatalogConfiguration => _configuration;
 
         public IWorkbook ReadWorkbook()
         {

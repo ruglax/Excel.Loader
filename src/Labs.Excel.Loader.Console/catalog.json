@@ -1,590 +1,626 @@
 ﻿{
-  "filepath": "..\\..\\..\\..\\..\\assets\\catCFDI.xlsx",
-  "catalogDefinition": [
+  "version": "1.0",
+  "files": [
     {
-      "sheetName": "c_Aduana",
+      "filePath": "..\\..\\..\\..\\..\\assets\\catCFDI.xlsx",
       "active": false,
-      "version": "1.0",
-      "revision": "1",
-      "columns": [
+      "catalogDefinition": [
         {
-          "Index": 0,
-          "Name": "c_Aduana",
-          "PropertyName": "Id",
-          "Mask": "0:00"
+          "sheetName": "c_Aduana",
+          "active": false,
+          "version": "1.0",
+          "revision": "1",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_Aduana",
+              "PropertyName": "Id",
+              "Mask": "0:00"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
         },
         {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
+          "sheetName": "c_ClaveUnidad",
+          "active": false,
+          "version": "1.0",
+          "revision": "1",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_ClaveUnidad",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Nombre",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 4,
+              "Name": "Fecha de inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            },
+            {
+              "Index": 5,
+              "Name": "Fecha de fin de vigencia",
+              "PropertyName": "FechaFin"
+            }
+          ]
         },
         {
-          "Index": 2,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
+          "sheetName": "c_ClaveProdServ",
+          "active": false,
+          "version": "2.0",
+          "revision": "2",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_ClaveProdServ",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Incluir IVA trasladado",
+              "PropertyName": "IncluirIVA"
+            },
+            {
+              "Index": 3,
+              "Name": "Incluir IEPS trasladado",
+              "PropertyName": "IncluirIEPS"
+            },
+            {
+              "Index": 5,
+              "Name": "FechaInicioVigencia",
+              "PropertyName": "FechaInicio"
+            },
+            {
+              "Index": 6,
+              "Name": "FechaFinVigencia",
+              "PropertyName": "FechaFin"
+            },
+            {
+              "Index": 7,
+              "Name": "Estímulo Franja Fronteriza",
+              "PropertyName": "EstimuloFranjaFronteriza"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
+          "entityName": "c_CodigoPostal",
+          "active": false,
+          "version": "4.0",
+          "revision": "1",
+          "excludedValues": [ "00000", "", "Continúa en c_CodigoPostal_2", "Catálogo de códigos postales.", "Versión", 4.0, "c_CodigoPostal" ],
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_CodigoPostal",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "c_Estado",
+              "PropertyName": "Estado"
+            },
+            {
+              "Index": 2,
+              "Name": "c_Municipio",
+              "PropertyName": "Municipio"
+            },
+            {
+              "Index": 3,
+              "Name": "c_Localidad",
+              "PropertyName": "Localidad"
+            },
+            {
+              "Index": 4,
+              "Name": "Estímulo Franja Fronteriza",
+              "PropertyName": "EstimuloFranjaFronteriza"
+            },
+            {
+              "Index": 5,
+              "Name": "Fecha de inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            },
+            {
+              "Index": 6,
+              "Name": "Fecha de fin de vigencia",
+              "PropertyName": "FechaFin"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_FormaPago",
+          "active": false,
+          "version": "1.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_FormaPago",
+              "PropertyName": "Id",
+              "Mask": "0:00"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Bancarizado",
+              "PropertyName": "BancarizadoRaw"
+            },
+            {
+              "Index": 3,
+              "Name": "Nímero de operación",
+              "PropertyName": "NumeroOperacionRaw"
+            },
+            {
+              "Index": 4,
+              "Name": "RFC del Emisor de la cuenta ordenante",
+              "PropertyName": "RfcEmisorCuentaOrdenanteRaw"
+            },
+            {
+              "Index": 5,
+              "Name": "Cuenta Ordenante",
+              "PropertyName": "CuentaOrdenanteRaw"
+            },
+            {
+              "Index": 6,
+              "Name": "Patrón para cuenta ordenante",
+              "PropertyName": "PatronCuentaOrdenanteRaw"
+            },
+            {
+              "Index": 7,
+              "Name": "RFC del Emisor Cuenta de Beneficiario",
+              "PropertyName": "RfcEmisorCuentaBeneficiarioRaw"
+            },
+            {
+              "Index": 8,
+              "Name": "Cuenta de Benenficiario",
+              "PropertyName": "CuentaBeneficiarioRaw"
+            },
+            {
+              "Index": 9,
+              "Name": "Patrón para cuenta Beneficiaria",
+              "PropertyName": "PatronCuentaBeneficiariaRaw"
+            },
+            {
+              "Index": 10,
+              "Name": "Tipo Cadena Pago",
+              "PropertyName": "TipoCadenaPagoRaw"
+            },
+            {
+              "Index": 11,
+              "Name": "Nombre del Banco emisor de la cuenta ordenante en caso de extranjero",
+              "PropertyName": "NombreBancoEmisorCuentaOrdenanteRaw"
+            },
+            {
+              "Index": 12,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_Impuesto",
+          "active": false,
+          "version": "1.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_Impuesto",
+              "PropertyName": "Id",
+              "Mask": "0:000"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Retención",
+              "PropertyName": "RetencionRaw"
+            },
+            {
+              "Index": 3,
+              "Name": "Traslado",
+              "PropertyName": "TrasladoRaw"
+            },
+            {
+              "Index": 4,
+              "Name": "Local o federal",
+              "PropertyName": "LocalOFederal"
+            },
+            {
+              "Index": 5,
+              "Name": "Entidad en la que aplica",
+              "PropertyName": "Entidad"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_MetodoPago",
+          "active": false,
+          "version": "2.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_MetodoPago",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_Moneda",
+          "active": false,
+          "version": "2.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_Moneda",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Decimales",
+              "PropertyName": "Decimales"
+            },
+            {
+              "Index": 3,
+              "Name": "Porcentaje variación",
+              "PropertyName": "PorcentajeVariacionRaw",
+              "Mask": "0:##%"
+            },
+            {
+              "Index": 4,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_NumPedimentoAduana",
+          "active": true,
+          "version": "37.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_Aduana",
+              "PropertyName": "Aduana"
+            },
+            {
+              "Index": 1,
+              "Name": "Patente",
+              "PropertyName": "Patente"
+            },
+            {
+              "Index": 2,
+              "Name": "Ejercicio",
+              "PropertyName": "Ejercicio"
+            },
+            {
+              "Index": 3,
+              "Name": "Cantidad",
+              "PropertyName": "Cantidad"
+            },
+            {
+              "Index": 4,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_Pais",
+          "active": false,
+          "version": "1.0",
+          "revision": "1",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_Pais",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Formato de código postal",
+              "PropertyName": "FormatoCodigoPostal"
+            },
+            {
+              "Index": 3,
+              "Name": "Formato de Registro de Identidad Tributaria",
+              "PropertyName": "FormatoRegistroIdentidad"
+            },
+            {
+              "Index": 4,
+              "Name": "Validación del Registro de Identidad Tributaria",
+              "PropertyName": "ValidacionRegistroIdentidad"
+            },
+            {
+              "Index": 5,
+              "Name": "Validación del Registro de Identidad Tributaria",
+              "PropertyName": "Agrupaciones"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_PatenteAduanal",
+          "active": false,
+          "version": "29.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "C_PatenteAduanal",
+              "PropertyName": "Id",
+              "Mask": "0:0000"
+            },
+            {
+              "Index": 1,
+              "Name": "Inicio de vigencia de la patente",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_RegimenFiscal",
+          "active": false,
+          "version": "1.0",
+          "revision": "A",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_RegimenFiscal",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Física",
+              "PropertyName": "FisicaRaw"
+            },
+            {
+              "Index": 3,
+              "Name": "Moral",
+              "PropertyName": "MoralRaw"
+            },
+            {
+              "Index": 4,
+              "Name": "Fecha de inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_TasaOCuota",
+          "active": false,
+          "version": "2.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "Rango o Fijo",
+              "PropertyName": "TasaOCuotaTypeRaw"
+            },
+            {
+              "Index": 1,
+              "Name": "Valor mínimo",
+              "PropertyName": "ValorMinimo",
+              "Mask": "0:0.000000"
+            },
+            {
+              "Index": 2,
+              "Name": "Valor máximo",
+              "PropertyName": "ValorMaximo",
+              "Mask": "0:0.000000"
+            },
+            {
+              "Index": 3,
+              "Name": "Impuesto",
+              "PropertyName": "ImpuestoRaw"
+            },
+            {
+              "Index": 4,
+              "Name": "Factor",
+              "PropertyName": "Factor"
+            },
+            {
+              "Index": 5,
+              "Name": "Traslado",
+              "PropertyName": "TrasladoRaw"
+            },
+            {
+              "Index": 6,
+              "Name": "Retencion",
+              "PropertyName": "RetencionRaw"
+            },
+            {
+              "Index": 7,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            },
+            {
+              "Index": 8,
+              "Name": "Fecha fin de vigencia",
+              "PropertyName": "FechaFin"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_TipoDeComprobante",
+          "active": false,
+          "version": "1.0",
+          "revision": "3",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_TipoDeComprobante",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Valor máximo",
+              "PropertyName": "ValorMaximo",
+              "Mask": "0:0.000000"
+            },
+            {
+              "Index": 4,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_TipoFactor",
+          "active": false,
+          "version": "1.0",
+          "revision": "3",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_TipoFactor",
+              "PropertyName": "Id"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_TipoRelacion",
+          "active": false,
+          "version": "2.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_TipoRelacion",
+              "PropertyName": "Id",
+              "Mask": "0:00"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Fecha inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
+        },
+        {
+          "sheetName": "c_UsoCFDI",
+          "active": false,
+          "version": "2.0",
+          "revision": "1",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_UsoCFDI",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "Descripción",
+              "PropertyName": "Descripcion"
+            },
+            {
+              "Index": 2,
+              "Name": "Física",
+              "PropertyName": "FisicaRaw"
+            },
+            {
+              "Index": 3,
+              "Name": "Moral",
+              "PropertyName": "MoralRaw"
+            },
+            {
+              "Index": 4,
+              "Name": "Fecha de inicio de vigencia",
+              "PropertyName": "FechaInicio"
+            }
+          ]
         }
       ]
     },
     {
-      "sheetName": "c_ClaveUnidad",
-      "active": false,
-      "version": "1.0",
-      "revision": "1",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_ClaveUnidad",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Nombre",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 4,
-          "Name": "Fecha de inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        },
-        {
-          "Index": 5,
-          "Name": "Fecha de fin de vigencia",
-          "PropertyName": "FechaFin"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_ClaveProdServ",
-      "active": false,
-      "version": "2.0",
-      "revision": "2",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_ClaveProdServ",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Incluir IVA trasladado",
-          "PropertyName": "IncluirIVA"
-        },
-        {
-          "Index": 3,
-          "Name": "Incluir IEPS trasladado",
-          "PropertyName": "IncluirIEPS"
-        },
-        {
-          "Index": 5,
-          "Name": "FechaInicioVigencia",
-          "PropertyName": "FechaInicio"
-        },
-        {
-          "Index": 6,
-          "Name": "FechaFinVigencia",
-          "PropertyName": "FechaFin"
-        },
-        {
-          "Index": 7,
-          "Name": "Estímulo Franja Fronteriza",
-          "PropertyName": "EstimuloFranjaFronteriza"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_CodigoPostal_Parte_1, c_CodigoPostal_Parte_2",
-      "entityName": "c_CodigoPostal",
-      "active": false,
-      "version": "4.0",
-      "revision": "1",
-      "excludedValues": [ "00000", "", "Continúa en c_CodigoPostal_2", "Catálogo de códigos postales.", "Versión", 4.0, "c_CodigoPostal" ],
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_CodigoPostal",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "c_Estado",
-          "PropertyName": "Estado"
-        },
-        {
-          "Index": 2,
-          "Name": "c_Municipio",
-          "PropertyName": "Municipio"
-        },
-        {
-          "Index": 3,
-          "Name": "c_Localidad",
-          "PropertyName": "Localidad"
-        },
-        {
-          "Index": 4,
-          "Name": "Estímulo Franja Fronteriza",
-          "PropertyName": "EstimuloFranjaFronteriza"
-        },
-        {
-          "Index": 5,
-          "Name": "Fecha de inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        },
-        {
-          "Index": 6,
-          "Name": "Fecha de fin de vigencia",
-          "PropertyName": "FechaFin"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_FormaPago",
-      "active": false,
-      "version": "1.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_FormaPago",
-          "PropertyName": "Id",
-          "Mask": "0:00"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Bancarizado",
-          "PropertyName": "BancarizadoRaw"
-        },
-        {
-          "Index": 3,
-          "Name": "Nímero de operación",
-          "PropertyName": "NumeroOperacionRaw"
-        },
-        {
-          "Index": 4,
-          "Name": "RFC del Emisor de la cuenta ordenante",
-          "PropertyName": "RfcEmisorCuentaOrdenanteRaw"
-        },
-        {
-          "Index": 5,
-          "Name": "Cuenta Ordenante",
-          "PropertyName": "CuentaOrdenanteRaw"
-        },
-        {
-          "Index": 6,
-          "Name": "Patrón para cuenta ordenante",
-          "PropertyName": "PatronCuentaOrdenanteRaw"
-        },
-        {
-          "Index": 7,
-          "Name": "RFC del Emisor Cuenta de Beneficiario",
-          "PropertyName": "RfcEmisorCuentaBeneficiarioRaw"
-        },
-        {
-          "Index": 8,
-          "Name": "Cuenta de Benenficiario",
-          "PropertyName": "CuentaBeneficiarioRaw"
-        },
-        {
-          "Index": 9,
-          "Name": "Patrón para cuenta Beneficiaria",
-          "PropertyName": "PatronCuentaBeneficiariaRaw"
-        },
-        {
-          "Index": 10,
-          "Name": "Tipo Cadena Pago",
-          "PropertyName": "TipoCadenaPagoRaw"
-        },
-        {
-          "Index": 11,
-          "Name": "Nombre del Banco emisor de la cuenta ordenante en caso de extranjero",
-          "PropertyName": "NombreBancoEmisorCuentaOrdenanteRaw"
-        },
-        {
-          "Index": 12,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_Impuesto",
-      "active": false,
-      "version": "1.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_Impuesto",
-          "PropertyName": "Id",
-          "Mask": "0:000"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Retención",
-          "PropertyName": "RetencionRaw"
-        },
-        {
-          "Index": 3,
-          "Name": "Traslado",
-          "PropertyName": "TrasladoRaw"
-        },
-        {
-          "Index": 4,
-          "Name": "Local o federal",
-          "PropertyName": "LocalOFederal"
-        },
-        {
-          "Index": 5,
-          "Name": "Entidad en la que aplica",
-          "PropertyName": "Entidad"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_MetodoPago",
-      "active": false,
-      "version": "2.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_MetodoPago",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_Moneda",
-      "active": false,
-      "version": "2.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_Moneda",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Decimales",
-          "PropertyName": "Decimales"
-        },
-        {
-          "Index": 3,
-          "Name": "Porcentaje variación",
-          "PropertyName": "PorcentajeVariacionRaw",
-          "Mask": "0:##%"
-        },
-        {
-          "Index": 4,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_NumPedimentoAduana",
+      "filePath": "C:\\Users\\Raúl Silva\\Desktop\\c_Colonia.xlsx",
       "active": true,
-      "version": "37.0",
-      "revision": "0",
-      "columns": [
+      "catalogDefinition": [
         {
-          "Index": 0,
-          "Name": "c_Aduana",
-          "PropertyName": "Aduana"
-        },
-        {
-          "Index": 1,
-          "Name": "Patente",
-          "PropertyName": "Patente"
-        },
-        {
-          "Index": 2,
-          "Name": "Ejercicio",
-          "PropertyName": "Ejercicio"
-        },
-        {
-          "Index": 3,
-          "Name": "Cantidad",
-          "PropertyName": "Cantidad"
-        },
-        {
-          "Index": 4,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_Pais",
-      "active": false,
-      "version": "1.0",
-      "revision": "1",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_Pais",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Formato de código postal",
-          "PropertyName": "FormatoCodigoPostal"
-        },
-        {
-          "Index": 3,
-          "Name": "Formato de Registro de Identidad Tributaria",
-          "PropertyName": "FormatoRegistroIdentidad"
-        },
-        {
-          "Index": 4,
-          "Name": "Validación del Registro de Identidad Tributaria",
-          "PropertyName": "ValidacionRegistroIdentidad"
-        },
-        {
-          "Index": 5,
-          "Name": "Validación del Registro de Identidad Tributaria",
-          "PropertyName": "Agrupaciones"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_PatenteAduanal",
-      "active": false,
-      "version": "29.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "C_PatenteAduanal",
-          "PropertyName": "Id",
-          "Mask": "0:0000"
-        },
-        {
-          "Index": 1,
-          "Name": "Inicio de vigencia de la patente",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_RegimenFiscal",
-      "active": false,
-      "version": "1.0",
-      "revision": "A",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_RegimenFiscal",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Física",
-          "PropertyName": "FisicaRaw"
-        },
-        {
-          "Index": 3,
-          "Name": "Moral",
-          "PropertyName": "MoralRaw"
-        },
-        {
-          "Index": 4,
-          "Name": "Fecha de inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_TasaOCuota",
-      "active": false,
-      "version": "2.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "Rango o Fijo",
-          "PropertyName": "TasaOCuotaTypeRaw"
-        },
-        {
-          "Index": 1,
-          "Name": "Valor mínimo",
-          "PropertyName": "ValorMinimo",
-          "Mask": "0:0.000000"
-        },
-        {
-          "Index": 2,
-          "Name": "Valor máximo",
-          "PropertyName": "ValorMaximo",
-          "Mask": "0:0.000000"
-        },
-        {
-          "Index": 3,
-          "Name": "Impuesto",
-          "PropertyName": "ImpuestoRaw"
-        },
-        {
-          "Index": 4,
-          "Name": "Factor",
-          "PropertyName": "Factor"
-        },
-        {
-          "Index": 5,
-          "Name": "Traslado",
-          "PropertyName": "TrasladoRaw"
-        },
-        {
-          "Index": 6,
-          "Name": "Retencion",
-          "PropertyName": "RetencionRaw"
-        },
-        {
-          "Index": 7,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        },
-        {
-          "Index": 8,
-          "Name": "Fecha fin de vigencia",
-          "PropertyName": "FechaFin"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_TipoDeComprobante",
-      "active": false,
-      "version": "1.0",
-      "revision": "3",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_TipoDeComprobante",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Valor máximo",
-          "PropertyName": "ValorMaximo",
-          "Mask": "0:0.000000"
-        },
-        {
-          "Index": 4,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_TipoFactor",
-      "active": false,
-      "version": "1.0",
-      "revision": "3",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_TipoFactor",
-          "PropertyName": "Id"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_TipoRelacion",
-      "active": false,
-      "version": "2.0",
-      "revision": "0",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_TipoRelacion",
-          "PropertyName": "Id",
-          "Mask": "0:00"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Fecha inicio de vigencia",
-          "PropertyName": "FechaInicio"
-        }
-      ]
-    },
-    {
-      "sheetName": "c_UsoCFDI",
-      "active": false,
-      "version": "2.0",
-      "revision": "1",
-      "columns": [
-        {
-          "Index": 0,
-          "Name": "c_UsoCFDI",
-          "PropertyName": "Id"
-        },
-        {
-          "Index": 1,
-          "Name": "Descripción",
-          "PropertyName": "Descripcion"
-        },
-        {
-          "Index": 2,
-          "Name": "Física",
-          "PropertyName": "FisicaRaw"
-        },
-        {
-          "Index": 3,
-          "Name": "Moral",
-          "PropertyName": "MoralRaw"
-        },
-        {
-          "Index": 4,
-          "Name": "Fecha de inicio de vigencia",
-          "PropertyName": "FechaInicio"
+          "sheetName": "c_Colonia_1, c_Colonia_2, c_Colonia_3",
+          "entityName": "c_Colonia",
+          "active": true,
+          "version": "2.0",
+          "revision": "0",
+          "columns": [
+            {
+              "Index": 0,
+              "Name": "c_Colonia",
+              "PropertyName": "Id"
+            },
+            {
+              "Index": 1,
+              "Name": "c_CodigoPostal",
+              "PropertyName": "CodigoPostal"
+            },
+            {
+              "Index": 2,
+              "Name": "Nombre del asentamiento",
+              "PropertyName": "Descripcion"
+            }
+          ]
         }
       ]
     }
