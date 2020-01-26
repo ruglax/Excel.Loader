@@ -6,6 +6,6 @@ namespace Labs.Excel.Loader.Configuration
     {
         public string Version { get; set; }
 
-        public List<CatalogFile> Filesx = new List<CatalogFile>(); 
+        public List<CatalogFile> Files = new List<CatalogFile>();
     }
 }
